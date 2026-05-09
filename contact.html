@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Fate of Antara | Contact</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Fate of Antara Official Contact Page">
+	<meta name="keywords" content="Fate of Antara, CGI BUZZ Studio, Steam RPG">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/owl.carousel.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/animate.css"/>
+
+<style>
+
+body{
+	background:
+	radial-gradient(circle at top, rgba(180,0,0,0.22), transparent 40%),
+	linear-gradient(180deg,#080808 0%, #120000 40%, #050505 100%);
+	background-attachment:fixed;
+	overflow-x:hidden;
+}
+
+/* RED PARTICLES */
+
+.red-particles{
+	position:fixed;
+	inset:0;
+	z-index:-1;
+	pointer-events:none;
+	overflow:hidden;
+}
+
+.red-particles span{
+	position:absolute;
+	display:block;
+	width:3px;
+	height:3px;
+	background:#ff2a2a;
+	border-radius:50%;
+	box-shadow:0 0 10px #ff0000;
+	animation:particleMove linear infinite;
+	opacity:.65;
+}
+
+@keyframes particleMove{
+	0%{
+		transform:translateY(100vh) scale(0.5);
+		opacity:0;
+	}
+	10%{
+		opacity:.7;
+	}
+	100%{
+		transform:translateY(-120px) scale(1.2);
+		opacity:0;
+	}
+}
+
+/* PAGE */
+
+.page-info-section{
+	position:relative;
+}
+
+.page-info-section::before{
+	content:'';
+	position:absolute;
+	inset:0;
+	background:rgba(0,0,0,0.55);
+}
+
+.pi-content{
+	position:relative;
+	z-index:2;
+}
+
+/* MAP */
+
+.custom-map-wrapper{
+	position:relative;
+	border-radius:28px;
+	overflow:hidden;
+	box-shadow:
+	0 0 45px rgba(255,0,0,0.10),
+	0 0 90px rgba(0,0,0,0.45);
+	border:1px solid rgba(255,255,255,0.06);
+	margin-bottom:60px;
+	background:#050505;
+}
+
+.custom-map-wrapper iframe{
+	width:100%;
+	height:560px;
+	border:0;
+	filter:
+	brightness(0.72)
+	contrast(1.08)
+	saturate(0.82)
+	hue-rotate(-8deg);
+}
+
+.custom-map-wrapper::after{
+	content:'';
+	position:absolute;
+	inset:0;
+	background:
+	linear-gradient(to top,
+	rgba(0,0,0,0.82) 5%,
+	rgba(0,0,0,0.15) 45%,
+	rgba(0,0,0,0.35) 100%);
+	pointer-events:none;
+}
+
+.map-overlay-card{
+	position:absolute;
+	left:40px;
+	bottom:40px;
+	z-index:5;
+	max-width:380px;
+	padding:30px;
+	border-radius:22px;
+	background:rgba(10,10,10,0.88);
+	backdrop-filter:blur(10px);
+	border:1px solid rgba(255,255,255,0.08);
+}
+
+.map-overlay-card .location-tag{
+	display:inline-block;
+	padding:8px 16px;
+	border-radius:30px;
+	font-size:12px;
+	font-weight:700;
+	letter-spacing:1px;
+	text-transform:uppercase;
+	margin-bottom:18px;
+	background:rgba(255,80,80,0.12);
+	border:1px solid rgba(255,120,120,0.22);
+	color:#ffb7b7;
+}
+
+.map-overlay-card h3{
+	font-size:34px;
+	font-weight:700;
+	color:#fff;
+	margin-bottom:16px;
+	line-height:1.2;
+}
+
+.map-overlay-card p{
+	font-size:15px;
+	line-height:1.9;
+	color:#d3d3d3;
+	margin-bottom:24px;
+}
+
+.map-overlay-card a{
+	display:inline-block;
+	padding:14px 24px;
+	border-radius:14px;
+	background:
+	linear-gradient(
+	90deg,
+	rgba(60,35,35,0.96),
+	rgba(105,55,55,0.96)
+	);
+	color:#fff;
+	font-weight:700;
+	text-decoration:none;
+	transition:0.35s;
+}
+
+.map-overlay-card a:hover{
+	transform:translateY(-4px);
+}
+
+.location-small-details{
+	display:flex;
+	align-items:center;
+	gap:14px;
+	margin-top:22px;
+	padding-top:18px;
+	border-top:1px solid rgba(255,255,255,0.06);
+}
+
+.location-small-details i{
+	width:42px;
+	height:42px;
+	border-radius:50%;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	background:rgba(255,255,255,0.06);
+	color:#ffbaba;
+	font-size:16px;
+}
+
+.location-small-details span{
+	color:#cfcfcf;
+	font-size:14px;
+	line-height:1.6;
+}
+
+.contact-form-warp{
+	background:rgba(10,10,10,0.88);
+	padding:35px;
+	border-radius:24px;
+	border:1px solid rgba(255,255,255,0.06);
+}
+
+.details-form input,
+.details-form textarea{
+	width:100%;
+	background:#111;
+	border:1px solid rgba(255,255,255,0.08);
+	color:#fff;
+	padding:16px;
+	margin-bottom:20px;
+	border-radius:12px;
+}
+
+.details-form textarea{
+	height:180px;
+	resize:none;
+}
+
+.details-form input:focus,
+.details-form textarea:focus{
+	outline:none;
+	border-color:#ff8b8b;
+}
+
+.contact-info-list li{
+	color:#d5d5d5;
+	margin-bottom:14px;
+}
+
+.social-links a{
+	display:inline-flex;
+	align-items:center;
+	justify-content:center;
+	width:48px;
+	height:48px;
+	border-radius:50%;
+	background:rgba(255,255,255,0.05);
+	color:#fff;
+	margin-right:10px;
+	transition:0.3s;
+}
+
+.social-links a:hover{
+	background:#a33;
+	transform:translateY(-3px);
+}
+
+@media(max-width:991px){
+
+	.custom-map-wrapper iframe{
+		height:500px;
+	}
+
+	.map-overlay-card{
+		left:20px;
+		right:20px;
+		bottom:20px;
+		max-width:none;
+	}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="red-particles">
+
+<span style="left:2%;animation-duration:9s;"></span>
+<span style="left:8%;animation-duration:11s;"></span>
+<span style="left:14%;animation-duration:13s;"></span>
+<span style="left:20%;animation-duration:10s;"></span>
+<span style="left:26%;animation-duration:15s;"></span>
+<span style="left:32%;animation-duration:12s;"></span>
+<span style="left:38%;animation-duration:14s;"></span>
+<span style="left:44%;animation-duration:9s;"></span>
+<span style="left:50%;animation-duration:13s;"></span>
+<span style="left:56%;animation-duration:16s;"></span>
+<span style="left:62%;animation-duration:12s;"></span>
+<span style="left:68%;animation-duration:10s;"></span>
+<span style="left:74%;animation-duration:14s;"></span>
+<span style="left:80%;animation-duration:9s;"></span>
+<span style="left:86%;animation-duration:15s;"></span>
+<span style="left:92%;animation-duration:11s;"></span>
+
+</div>
+
+<!-- PRELOADER -->
+<div id="preloder">
+	<div class="loader"></div>
+</div>
+
+<!-- HEADER -->
+<header class="header-section">
+	<div class="container">
+
+		<a class="site-logo" href="index.html">
+			<img src="img/logo.png" alt="">
+		</a>
+
+		<div class="user-panel">
+			<a href="https://store.steampowered.com/app/4015060/Fate_of_Antara/" target="_blank">
+				Steam
+			</a>
+			/
+			<a href="https://discord.gg/TdDky44mdE" target="_blank">
+				Discord
+			</a>
+		</div>
+
+		<div class="nav-switch">
+			<i class="fa fa-bars"></i>
+		</div>
+
+		<nav class="main-menu">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="review.html">Game</a></li>
+				<li><a href="categories.html">News</a></li>
+				<li><a href="community.html">Community</a></li>
+				<li><a href="guide.html">Road Map / Guide</a></li>
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+		</nav>
+
+	</div>
+</header>
+
+<!-- NEWS -->
+<div class="latest-news-section" style="background:linear-gradient(90deg,#1a0000,#000000);">
+
+	<div class="ln-title">Latest News</div>
+
+	<div class="news-ticker">
+
+		<div class="news-ticker-contant">
+
+			<div class="nt-item">
+				<span class="new">new</span>
+				Explore the elemental kingdoms of Fate of Antara.
+			</div>
+
+			<div class="nt-item">
+				<span class="strategy">update</span>
+				Join the official Fate of Antara Discord community.
+			</div>
+
+			<div class="nt-item">
+				<span class="racing">steam</span>
+				Wishlist Fate of Antara on Steam now.
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<!-- PAGE INFO -->
+<section class="page-info-section set-bg" data-setbg="img/page-top-bg/5.jpg">
+
+	<div class="pi-content">
+
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-xl-5 col-lg-6 text-white">
+
+					<h2>Contact & Links</h2>
+
+					<p>
+						Get in touch with CGI BUZZ Studio and the Fate of Antara community.
+					</p>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="page-section spad contact-page">
+
+<div class="container">
+
+<!-- MAP -->
+<div class="custom-map-wrapper">
+
+<iframe
+	src="https://www.google.com/maps?q=Islamabad,Pakistan&output=embed"
+	allowfullscreen=""
+	loading="lazy">
+</iframe>
+
+<div class="map-overlay-card">
+
+	<span class="location-tag">
+		CGI BUZZ Studio
+	</span>
+
+	<h3>
+		Fate of Antara <br>
+		Islamabad Studio
+	</h3>
+
+	<p>
+		Official development location of Fate of Antara by CGI BUZZ Studio.
+	</p>
+
+	<a href="https://www.google.com/maps/place/Islamabad/" target="_blank">
+		View Full Location
+	</a>
+
+	<div class="location-small-details">
+
+		<i class="fa fa-map-marker"></i>
+
+		<span>
+			Islamabad
+		</span>
+
+	</div>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<!-- LEFT -->
+<div class="col-lg-4 mb-5 mb-lg-0">
+
+	<h4 class="comment-title">
+		Contact & Links
+	</h4>
+
+	<p>
+		Reach out through official channels for support,
+		game updates and community discussions.
+	</p>
+
+	<ul class="contact-info-list">
+
+		<li>
+			<div class="cf-left">Location</div>
+			<div class="cf-right">Islamabad</div>
+		</li>
+
+		<li>
+			<div class="cf-left">Studio</div>
+			<div class="cf-right">CGI BUZZ Studio</div>
+		</li>
+
+		<li>
+			<div class="cf-left">Website</div>
+			<div class="cf-right">fateofantara.com</div>
+		</li>
+
+	</ul>
+
+	<div class="social-links">
+
+		<a href="https://store.steampowered.com/app/4015060/Fate_of_Antara/" target="_blank">
+			<i class="fa fa-steam"></i>
+		</a>
+
+		<a href="https://www.facebook.com/profile.php?id=61588843092407" target="_blank">
+			<i class="fa fa-facebook"></i>
+		</a>
+
+		<a href="https://discord.gg/TdDky44mdE" target="_blank">
+			<i class="fa fa-comments"></i>
+		</a>
+
+		<a href="https://www.youtube.com/@FateofAntara" target="_blank">
+			<i class="fa fa-youtube-play"></i>
+		</a>
+
+		<a href="https://www.youtube.com/@cgibuzz4756/" target="_blank">
+			<i class="fa fa-youtube"></i>
+		</a>
+
+	</div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="col-lg-8">
+
+	<div class="contact-form-warp">
+
+		<h4 class="comment-title">
+			Send Message
+		</h4>
+
+		<form
+			class="details-form"
+			action="https://formsubmit.co/farhandoc666@gmail.com"
+			method="POST"
+		>
+
+			<!-- SETTINGS -->
+			<input type="hidden" name="_subject" value="Fate of Antara Contact Message">
+
+			<input type="hidden" name="_captcha" value="false">
+
+			<input type="hidden" name="_template" value="table">
+
+			<input
+				type="hidden"
+				name="_autoresponse"
+				value="Thank you for contacting Fate of Antara. Your message has been received successfully by CGI BUZZ Studio."
+			>
+
+			<input
+				type="hidden"
+				name="_next"
+				value="https://fateofantara.com/contact.html"
+			>
+
+			<div class="row">
+
+				<div class="col-md-6">
+
+					<input
+						type="text"
+						name="name"
+						placeholder="Your Name"
+						required
+					>
+
+				</div>
+
+				<div class="col-md-6">
+
+					<input
+						type="email"
+						name="email"
+						placeholder="Your Email Address"
+						required
+					>
+
+				</div>
+
+				<div class="col-lg-12">
+
+					<input
+						type="text"
+						name="topic"
+						placeholder="Message Topic"
+						required
+					>
+
+					<textarea
+						name="message"
+						placeholder="Write your message here..."
+						required
+					></textarea>
+
+					<button class="site-btn btn-sm" type="submit">
+
+						Send Message
+
+					</button>
+
+				</div>
+
+			</div>
+
+		</form>
+
+	</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER TOP -->
+<section class="footer-top-section">
+
+	<div class="container">
+
+		<div class="footer-top-bg"> </div>
+
+		<div class="row">
+
+			<div class="col-lg-4">
+
+				<div class="footer-logo text-white">
+
+					<img src="img/footer-logo.png" alt="">
+
+					<p>
+						Fast-paced fantasy combat, exploration,
+						and elemental storytelling built for
+						single-player adventure.
+					</p>
+
+				</div>
+
+			</div>
+
+			<div class="col-lg-4 col-md-6">
+
+				<div class="footer-widget mb-5 mb-md-0">
+
+					<h4 class="fw-title">
+						Official Channels
+					</h4>
+
+					<div class="latest-blog">
+
+						<div class="lb-item">
+
+							<div class="lb-thumb set-bg" data-setbg="img/latest-blog/1.png"></div>
+
+							<div class="lb-content">
+
+								<div class="lb-date">
+									Fate of Antara
+								</div>
+
+								<p>
+									Follow the journey of the elemental nations.
+								</p>
+
+							</div>
+
+						</div>
+
+						<div class="lb-item">
+
+							<div class="lb-thumb set-bg" data-setbg="img/latest-blog/2.png"></div>
+
+							<div class="lb-content">
+
+								<div class="lb-date">
+									Steam & Discord
+								</div>
+
+								<p>
+									Join the community and receive updates.
+								</p>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="col-lg-4 col-md-6">
+
+				<div class="footer-widget">
+
+					<h4 class="fw-title">
+						Community
+					</h4>
+
+					<div class="top-comment">
+
+						<div class="tc-item">
+
+							
+
+							<div class="tc-content">
+
+								<p>
+									<a href="#">Michel</a>
+									<span>on</span>
+									Follow development progress and updates.
+								</p>
+
+							</div>
+
+						</div>
+
+						<div class="tc-item">
+
+							
+
+							<div class="tc-content">
+
+								<p>
+									<a href="#">Tobasten</a>
+									<span>on</span>
+									Join our growing fantasy RPG community.
+								</p>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-section">
+
+	<div class="container">
+
+		<ul class="footer-menu">
+
+			<li><a href="index.html">Home</a></li>
+			<li><a href="review.html">Game</a></li>
+			<li><a href="categories.html">News</a></li>
+			<li><a href="community.html">Community</a></li>
+			<li><a href="guide.html">Road Map / Guide</a></li>
+			<li><a href="contact.html">Contact</a></li>
+
+		</ul>
+
+		<p class="copyright">
+
+			Copyright &copy;
+			<script>document.write(new Date().getFullYear());</script>
+
+			Fate of Antara | CGI BUZZ Studio
+
+		</p>
+
+	</div>
+
+</footer>
+
+<!-- JS -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.marquee.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

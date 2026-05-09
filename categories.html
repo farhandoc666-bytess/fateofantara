@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<title>Fate of Antara | CGI BUZZ Studio</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Fate of Antara is a story-driven single-player RPG where the elemental ant nations of Fire, Earth, Water, and Air unite against Norbakh’s darkness.">
+	<meta name="keywords" content="Fate of Antara, CGI BUZZ Studio, Steam, RPG, fantasy game">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/owl.carousel.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/animate.css"/>
+
+<style>
+
+body{
+	background:
+	radial-gradient(circle at top, rgba(180,0,0,0.25), transparent 40%),
+	linear-gradient(180deg,#080808 0%, #120000 40%, #050505 100%);
+	background-attachment:fixed;
+	overflow-x:hidden;
+}
+
+/* particles */
+
+.red-particles{
+	position:fixed;
+	inset:0;
+	pointer-events:none;
+	z-index:-1;
+}
+
+.red-particles span{
+	position:absolute;
+	display:block;
+	width:3px;
+	height:3px;
+	background:#ff2b2b;
+	border-radius:50%;
+	box-shadow:0 0 10px #ff0000;
+	animation:floatParticle linear infinite;
+	opacity:.7;
+}
+
+@keyframes floatParticle{
+
+	0%{
+		transform:translateY(100vh) scale(.5);
+		opacity:0;
+	}
+
+	10%{
+		opacity:.7;
+	}
+
+	100%{
+		transform:translateY(-120px) scale(1.2);
+		opacity:0;
+	}
+
+}
+
+/* sections */
+
+.page-info-section{
+	position:relative;
+}
+
+.page-info-section::before{
+	content:'';
+	position:absolute;
+	inset:0;
+	background:rgba(0,0,0,.55);
+}
+
+.pi-content{
+	position:relative;
+	z-index:2;
+}
+
+/* news cards */
+
+.news-box{
+	background:
+	rgba(10,10,10,.82);
+	border:1px solid rgba(255,255,255,.06);
+	border-radius:24px;
+	padding:35px;
+	margin-bottom:30px;
+	backdrop-filter:blur(8px);
+	box-shadow:
+	0 0 35px rgba(0,0,0,.35),
+	0 0 60px rgba(255,0,0,.06);
+	transition:.35s;
+}
+
+.news-box:hover{
+	transform:translateY(-8px);
+	box-shadow:
+	0 0 45px rgba(255,0,0,.14),
+	0 0 90px rgba(0,0,0,.45);
+}
+
+/* heading */
+
+.news-box h3{
+	display:inline-block;
+	background:linear-gradient(135deg,#ffcc00,#ff8800);
+	color:#000;
+	font-weight:800;
+	padding:10px 18px;
+	border-radius:12px;
+	font-size:26px;
+	margin-bottom:22px;
+	box-shadow:
+	0 0 15px rgba(255,180,0,.25),
+	0 0 30px rgba(255,120,0,.12);
+}
+
+/* text */
+
+.news-box p{
+	color:#d5d5d5;
+	line-height:1.95;
+	font-size:15px;
+	margin-bottom:22px;
+}
+
+/* buttons */
+
+.news-btn{
+	display:inline-flex;
+	align-items:center;
+	gap:10px;
+	padding:14px 24px;
+	border-radius:12px;
+	background:rgba(255,255,255,.06);
+	border:1px solid rgba(255,255,255,.08);
+	color:#fff;
+	font-weight:700;
+	text-decoration:none;
+	transition:.35s;
+}
+
+.news-btn:hover{
+	transform:translateY(-4px);
+	background:rgba(255,80,80,.18);
+	border-color:rgba(255,120,120,.25);
+	color:#fff;
+}
+
+/* sidebar */
+
+.sidebar-card{
+	background:
+	rgba(10,10,10,.82);
+	border:1px solid rgba(255,255,255,.06);
+	border-radius:24px;
+	padding:30px;
+	backdrop-filter:blur(8px);
+	box-shadow:
+	0 0 35px rgba(0,0,0,.35),
+	0 0 60px rgba(255,0,0,.06);
+}
+
+.sidebar-card h4{
+	color:#fff;
+	font-size:30px;
+	font-weight:700;
+	margin-bottom:22px;
+}
+
+.sidebar-card p{
+	color:#d5d5d5;
+	line-height:1.9;
+	font-size:15px;
+	margin-bottom:18px;
+}
+
+.search-widget input{
+	background:#111;
+	border:1px solid rgba(255,255,255,.08);
+	color:#fff;
+}
+
+.search-widget button{
+	background:#222;
+	color:#fff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="red-particles">
+
+<span style="left:0%;animation-duration:8s;"></span>
+<span style="left:10%;animation-duration:10s;"></span>
+<span style="left:20%;animation-duration:12s;"></span>
+<span style="left:30%;animation-duration:14s;"></span>
+<span style="left:40%;animation-duration:9s;"></span>
+<span style="left:50%;animation-duration:11s;"></span>
+<span style="left:60%;animation-duration:13s;"></span>
+<span style="left:70%;animation-duration:15s;"></span>
+<span style="left:80%;animation-duration:10s;"></span>
+<span style="left:90%;animation-duration:12s;"></span>
+
+</div>
+
+<!-- PRELOADER -->
+<div id="preloder">
+	<div class="loader"></div>
+</div>
+
+<!-- HEADER -->
+<header class="header-section">
+
+	<div class="container">
+
+		<a class="site-logo" href="index.html">
+
+			<img src="img/logo.png" alt="">
+
+		</a>
+
+		<div class="user-panel">
+
+			<a href="https://store.steampowered.com/app/4015060/Fate_of_Antara/" target="_blank">
+				Steam
+			</a>
+
+			/
+
+			<a href="https://discord.gg/TdDky44mdE" target="_blank">
+				Discord
+			</a>
+
+		</div>
+
+		<div class="nav-switch">
+			<i class="fa fa-bars"></i>
+		</div>
+
+		<nav class="main-menu">
+
+			<ul>
+
+				<li><a href="index.html">Home</a></li>
+				<li><a href="review.html">Game</a></li>
+				<li><a href="categories.html">News</a></li>
+				<li><a href="community.html">Community</a></li>
+				<li><a href="guide.html">Road Map / Guide</a></li>
+				<li><a href="contact.html">Contact</a></li>
+
+			</ul>
+
+		</nav>
+
+	</div>
+
+</header>
+
+<!-- NEWS TICKER -->
+<div class="latest-news-section" style="background:linear-gradient(90deg,#1a0000,#000000);">
+
+	<div class="ln-title">
+		Latest News
+	</div>
+
+	<div class="news-ticker">
+
+		<div class="news-ticker-contant">
+
+			<div class="nt-item">
+				<span class="new">new</span>
+				Explore the world of Antara where elemental nations fight against Norbakh.
+			</div>
+
+			<div class="nt-item">
+				<span class="strategy">update</span>
+				Follow development progress and upcoming updates.
+			</div>
+
+			<div class="nt-item">
+				<span class="racing">community</span>
+				Join Discord and Steam Community discussions.
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<!-- PAGE INFO -->
+<section class="page-info-section set-bg" data-setbg="img/page-top-bg/1.jpg">
+
+	<div class="pi-content">
+
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-xl-5 col-lg-6 text-white">
+
+					<h2>
+						News & Updates
+					</h2>
+
+					<p>
+						Latest development updates, gameplay reveals and world information from Fate of Antara.
+					</p>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+
+<!-- NEWS SECTION -->
+<section class="page-section recent-game-page spad">
+
+	<div class="container">
+
+		<div class="row">
+
+			<!-- LEFT -->
+		  <div class="col-lg-8">
+
+				<!-- NEWS 1 -->
+				<div class="news-box">
+
+					<h3>
+						Launch Trailer
+					</h3>
+
+					<p>
+
+						Enter the cinematic fantasy world of Antara where four elemental
+						nations rise against the darkness of Norbakh. Discover ancient kingdoms,
+						dangerous enemies and the legendary Oron Stone.
+
+					</p>
+
+					<a
+						href="https://store.steampowered.com/app/4015060/Fate_of_Antara/"
+						target="_blank"
+						class="news-btn"
+					>
+
+						<i class="fa fa-steam"></i>
+
+						View on Steam
+
+					</a>
+
+				</div>
+
+				<!-- NEWS 2 -->
+				<div class="news-box">
+
+					<h3>
+				    Give Surprises to Player&nbsp; &nbsp; </h3>
+
+					<p>
+
+				    Cheking indivually all players thru our servers and give them some surprises which will be help them&nbsp;&nbsp; </p>
+
+					<a
+						href="guide.html"
+						class="news-btn"
+					>
+
+						<i class="fa fa-book"></i>
+
+						View Guide
+
+					</a>
+
+		    </div>
+
+				<!-- NEWS 3 -->
+				<div class="news-box">
+
+					<h3>
+				    &nbsp;Perform Antara Event&nbsp; </h3>
+
+					<p>
+
+				    We are planning to go live and give some tasks to our players, then reward them with different grand prizes.&nbsp; </p>
+
+					<a
+						href="community.html"
+						class="news-btn"
+					>
+
+						<i class="fa fa-users"></i>
+
+						Join Community
+
+					</a>
+
+		    </div>
+
+				<!-- NEWS 4 -->
+
+			  <div class="news-box">
+
+					<h3>
+				    Major Update Announcement&nbsp; </h3>
+
+					<p>
+
+				    Build castle system is under progress ,will update soon to our all ants&nbsp; &nbsp;&nbsp; </p>
+
+					<a
+						href="review.html"
+						class="news-btn"
+					>
+
+						<i class="fa fa-gamepad"></i>
+
+						Read Story
+
+					</a>
+
+				</div>
+
+			</div>
+
+			<!-- SIDEBAR -->
+			<div class="col-lg-4 col-md-7 sidebar pt-5 pt-lg-0">
+
+				<!-- SEARCH -->
+				<div class="widget-item">
+
+					<form class="search-widget">
+
+						<input type="text" placeholder="Search News">
+
+						<button>
+							<i class="fa fa-search"></i>
+						</button>
+
+					</form>
+
+				</div>
+
+				<!-- SIDEBAR CARD -->
+				<div class="sidebar-card">
+
+					<h4>
+						Fate of Antara
+					</h4>
+
+					<p>
+
+						A cinematic story-driven fantasy RPG where powerful
+						elemental ant nations unite against Norbakh’s darkness.
+
+					</p>
+
+					<p>
+
+						Explore kingdoms, discover colonies,
+						master elemental combat and save the world of Antara.
+
+					</p>
+
+					<a
+						href="https://store.steampowered.com/app/4015060/Fate_of_Antara/"
+						target="_blank"
+						class="news-btn"
+					>
+
+						<i class="fa fa-steam"></i>
+
+						Steam Page
+
+					</a>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-section">
+
+	<div class="container">
+
+		<ul class="footer-menu">
+
+			<li><a href="index.html">Home</a></li>
+			<li><a href="review.html">Game</a></li>
+			<li><a href="categories.html">News</a></li>
+			<li><a href="community.html">Community</a></li>
+			<li><a href="guide.html">Road Map / Guide</a></li>
+			<li><a href="contact.html">Contact</a></li>
+
+		</ul>
+
+		<p class="copyright">
+
+			Copyright &copy;
+			<script>document.write(new Date().getFullYear());</script>
+
+			Fate of Antara | CGI BUZZ Studio
+
+		</p>
+
+	</div>
+
+</footer>
+
+<!-- JS -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.marquee.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

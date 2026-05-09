@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fate of Antara | Road Map / Guide</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css/font-awesome.min.css"/>
+
+  <style>
+    :root{
+      --bg0:#060606;
+      --bg1:#100000;
+      --bg2:#1b0b0b;
+      --panel:#0f0a0a;
+      --line:rgba(255,210,210,.12);
+      --text:#e7e7e7;
+      --muted:#c9c9c9;
+      --accent:#e2b6b6;
+      --accent2:#b98d8d;
+      --btn:#161010;
+      --btn2:#211515;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Roboto, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(130,25,25,.30), transparent 34%),
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,.05), transparent 18%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 42%, #050505 100%);
+      background-attachment:fixed;
+      overflow-x:hidden;
+    }
+
+    .red-particles{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      background-image:
+        radial-gradient(rgba(255,180,180,.8) 1px, transparent 1px);
+      background-size:42px 42px;
+      opacity:.12;
+      animation:drift 20s linear infinite;
+    }
+    @keyframes drift{
+      from{transform:translateY(0)}
+      to{transform:translateY(-220px)}
+    }
+
+    .guide-home-btn{
+      position:fixed;
+      top:18px;
+      right:18px;
+      z-index:1000;
+    }
+    .guide-home-btn a{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:13px 18px;
+      border-radius:12px;
+      text-decoration:none;
+      color:#fff;
+      font-weight:700;
+      background:linear-gradient(90deg, rgba(44,30,30,.96), rgba(70,44,44,.96));
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 0 18px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.03);
+      transition:.25s ease;
+    }
+    .guide-home-btn a:hover{
+      transform:translateY(-2px);
+      border-color:rgba(226,182,182,.24);
+      box-shadow:0 0 22px rgba(0,0,0,.45);
+    }
+
+    .guide-wrap{
+      max-width:1600px;
+      margin:0 auto;
+      padding:86px 18px 24px;
+    }
+
+    .guide-shell{
+      display:flex;
+      min-height:calc(100vh - 110px);
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      background:rgba(0,0,0,.72);
+      box-shadow:0 12px 40px rgba(0,0,0,.35);
+      backdrop-filter:blur(4px);
+    }
+
+    .guide-sidebar{
+      width:320px;
+      background:linear-gradient(180deg, rgba(14,10,10,.98), rgba(9,7,7,.98));
+      border-right:1px solid rgba(255,255,255,.06);
+      padding:22px;
+      overflow:auto;
+    }
+
+    .guide-sidebar h2{
+      margin:0 0 18px;
+      font-size:28px;
+      letter-spacing:.4px;
+      color:var(--accent);
+      font-weight:800;
+    }
+
+    .guide-btn{
+      width:100%;
+      border:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      color:#f3f3f3;
+      text-align:left;
+      padding:13px 14px;
+      border-radius:11px;
+      margin-bottom:10px;
+      font-size:15px;
+      transition:.22s ease;
+      cursor:pointer;
+    }
+    .guide-btn:hover{
+      transform:translateX(4px);
+      background:linear-gradient(180deg, rgba(226,182,182,.11), rgba(255,255,255,.03));
+      border-color:rgba(226,182,182,.18);
+    }
+    .guide-btn.active{
+      background:linear-gradient(90deg, rgba(58,38,38,.98), rgba(78,51,51,.98));
+      border-color:rgba(226,182,182,.22);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
+    }
+
+    .guide-content{
+      flex:1;
+      padding:24px 24px 26px;
+      overflow:auto;
+      background:linear-gradient(180deg, rgba(10,10,10,.70), rgba(6,6,6,.75));
+    }
+
+    .guide-search{
+      position:sticky;
+      top:0;
+      z-index:5;
+      padding-bottom:16px;
+      background:linear-gradient(180deg, rgba(10,10,10,.96), rgba(10,10,10,.80));
+    }
+    .guide-search input{
+      width:100%;
+      padding:16px 18px;
+      border-radius:12px;
+      border:1px solid rgba(226,182,182,.16);
+      background:rgba(16,12,12,.98);
+      color:#fff;
+      outline:none;
+      font-size:16px;
+    }
+    .guide-search input::placeholder{color:#aeaeae}
+
+    .guide-panel{
+      display:none;
+      padding:10px 6px 10px;
+      animation:fadeIn .22s ease;
+    }
+    .guide-panel.active{display:block}
+
+    .guide-panel h1,
+    .guide-panel h2{
+      margin:0 0 14px;
+      color:#f0d1d1;
+      font-size:34px;
+      line-height:1.2;
+    }
+    .guide-panel h3{
+      color:#f0d1d1;
+      margin:18px 0 8px;
+      font-size:22px;
+    }
+    .guide-panel h4{
+      color:#f1dede;
+      margin:16px 0 8px;
+      font-size:18px;
+    }
+    .guide-panel p{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.85;
+      margin:0 0 12px;
+      white-space:pre-line;
+    }
+    .guide-panel ul{
+      margin:0 0 14px 20px;
+      color:var(--muted);
+      line-height:1.8;
+    }
+    .guide-panel li{margin-bottom:8px}
+
+    .section-note{
+      color:#d8c1c1;
+      font-size:14px;
+      opacity:.95;
+      margin-top:6px;
+    }
+
+    .highlight{
+      background:rgba(242,220,220,.96);
+      color:#140707;
+      padding:1px 4px;
+      border-radius:4px;
+    }
+
+    .search-popup{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,.84);
+      z-index:9999;
+      padding:20px;
+    }
+    .search-popup-box{
+      width:min(760px, 96vw);
+      max-height:72vh;
+      overflow:auto;
+      background:#130d0d;
+      border:1px solid rgba(226,182,182,.18);
+      border-radius:16px;
+      box-shadow:0 18px 60px rgba(0,0,0,.55);
+      padding:22px;
+    }
+    .search-popup-box h3{
+      margin:0 0 16px;
+      color:#f2dcdc;
+      font-size:22px;
+    }
+    .search-result{
+      cursor:pointer;
+      padding:14px 15px;
+      margin-bottom:10px;
+      border-radius:12px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.05);
+      transition:.2s ease;
+      color:#fff;
+    }
+    .search-result:hover{
+      background:rgba(226,182,182,.12);
+      border-color:rgba(226,182,182,.18);
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0; transform:translateY(6px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    @media (max-width: 992px){
+      .guide-shell{flex-direction:column}
+      .guide-sidebar{
+        width:100%;
+        max-height:none;
+      }
+      .guide-content{
+        max-height:none;
+      }
+      .guide-home-btn{
+        top:12px;
+        right:12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="red-particles"></div>
+
+  <div class="guide-home-btn">
+    <a href="index.html"><i class="fa fa-home"></i> Back to Main Menu</a>
+  </div>
+
+  <div class="guide-wrap">
+    <div class="guide-shell">
+      <aside class="guide-sidebar">
+        <h2>Road Map / Guide</h2>
+        <button class="guide-btn active" data-guide="main-menu">Main Menu</button>
+        <button class="guide-btn" data-guide="character-setup">Character Setup</button>
+        <button class="guide-btn" data-guide="profile-card">Profile Card</button>
+        <button class="guide-btn" data-guide="continue-button">Continue Button</button>
+        <button class="guide-btn" data-guide="characteristics-panel">Characteristics Panel</button>
+        <button class="guide-btn" data-guide="road-map">Road Map</button>
+        <button class="guide-btn" data-guide="shop">Shop</button>
+        <button class="guide-btn" data-guide="reward-panel">Reward Panel</button>
+        <button class="guide-btn" data-guide="leaderboard">Leaderboard</button>
+        <button class="guide-btn" data-guide="options">Options</button>
+        <button class="guide-btn" data-guide="controls">Controls</button>
+        <button class="guide-btn" data-guide="new-game-menu">New Game Menu</button>
+        <button class="guide-btn" data-guide="resources">Resources</button>
+        <button class="guide-btn" data-guide="inventory">Inventory (Game Play)</button>
+        <button class="guide-btn" data-guide="attacks">Attacks</button>
+        <button class="guide-btn" data-guide="gameplay-menus">Gameplay Menus and Missions Objective</button>
+        <button class="guide-btn" data-guide="mission-objects">Mission Objects</button>
+        <button class="guide-btn" data-guide="minimap">MiniMap</button>
+        <button class="guide-btn" data-guide="abilities">Abilities</button>
+      </aside>
+
+      <main class="guide-content">
+        <div class="guide-search">
+          <input type="text" id="guideSearch" placeholder="Search anything in the guide...">
+        </div>
+
+        <section class="guide-panel active" id="main-menu">
+          <h2>Main Menu</h2>
+          <ul>
+            <li>On start of game you need to sign in through your Steam account, so internet should be good. About 20 MB is enough.</li>
+            <li>One time you need to press Steam sign in. Next time you will auto-login until you install Windows again.</li>
+          </ul>
+
+          <h3>Message Bar</h3>
+          <p>Bottom message from Game Developers for all users, so keep it secret. It is only for users who are playing this game.</p>
+        </section>
+
+        <section class="guide-panel" id="character-setup">
+          <h2>Character Setup</h2>
+          <ul>
+            <li>Every nation has individual characteristics and an individual profile card.</li>
+            <li>Levels and rank are separate for each nation.</li>
+            <li>You have to upgrade them individually and progress their level separately.</li>
+            <li>Even on the leaderboard it will show separately.</li>
+            <li>Select your nation in character setup.</li>
+            <li>Upgrade your character characteristics through the character panel or view it.</li>
+            <li>For gadgets add or upgrade you need to go to the shop from the bottom shop button in the main menu.</li>
+            <li>The abilities section is under review and will be updated ASAP.</li>
+          </ul>
+        </section>
+
+        <section class="guide-panel" id="profile-card">
+          <h2>Profile Card</h2>
+          <p>It shows your ant level, progress, score and kills with your username.</p>
+          <p>It is different for each ant nation.</p>
+        </section>
+
+        <section class="guide-panel" id="continue-button">
+          <h2>Continue Button</h2>
+          <p>All settings will be saved when you press Continue and you will return to the main menu.</p>
+          <p>So avoid using go back after changing cloth, gadgets and other items.</p>
+        </section>
+
+        <section class="guide-panel" id="characteristics-panel">
+          <h2>Characteristics Panel</h2>
+          <p>This panel explains how much values you are on your ant. Each nation is separately upgraded and applied.</p>
+          <p>You can buy or upgrade each characteristic value by pressing the upgrade button and using AQ and FOA coins.</p>
+        </section>
+
+        <section class="guide-panel" id="road-map">
+          <h2>Road Map</h2>
+          <p>Shows mission details according to your progress and shows all islands and planets.</p>
+        </section>
+
+        <section class="guide-panel" id="shop">
+          <h2>Shop</h2>
+          <p>This is the section where you can add different items, rides and consumable items using your AQ and FOA coins.</p>
+          <p>In coins section you can purchase AQ and FOA coins.</p>
+        </section>
+
+        <section class="guide-panel" id="reward-panel">
+          <h2>Reward Panel</h2>
+          <ul>
+            <li>On each day login you get rewarded by some items or some coins. It is totally random.</li>
+            <li>Do not forget to get your daily rewards.</li>
+            <li>When you press the highlighted button you get your reward and receive notification.</li>
+            <li>In future it will be upgraded to weekly and monthly rewards and also mission accomplishment rewards.</li>
+          </ul>
+        </section>
+
+        <section class="guide-panel" id="leaderboard">
+          <h2>Leaderboard</h2>
+          <p>It shows all players according to total kills and each nation score.</p>
+          <p>If user selects Fire nation then leaderboard shows Fire nation score only. It will not show other nations.</p>
+        </section>
+
+        <section class="guide-panel" id="options">
+          <h2>Options</h2>
+
+          <h3>Change Background</h3>
+          <p>It changes the main menu background with a new solid attractive color.</p>
+
+          <h3>Apply Effects</h3>
+          <p>It turns on ant view in the main menu and shows the environment outside the wall.</p>
+
+          <h3>Audio</h3>
+          <p>Adjust background music, which means it is only background music wherever it will play in menus or gameplay.</p>
+          <p>Same applies for VFx, which means sounds of buttons, effects, jumps, audio voices and all things except background music.</p>
+
+          <h3>Video</h3>
+          <p>These are graphics settings as per other games standards.</p>
+          <p>At first play, graphics settings window is settled down according to your selection.</p>
+        </section>
+
+        <section class="guide-panel" id="controls">
+          <h2>Controls</h2>
+          <p>Keyboard and joystick controls both work in good conditions.</p>
+          <p>For joystick mode, if you set the controls correctly, it will work.</p>
+
+          <h3>Basic Setting</h3>
+          <p>It is the most usable control setup including all attacks. Read and apply settings carefully.</p>
+
+          <h3>Shooter Setting</h3>
+          <p>It works only when you have a shooting weapon like Long Bow or Soul Reaper.</p>
+          <p>In gameplay you need this section too, because weapons are hidden in different barrels or locations.</p>
+
+          <h3>Add On</h3>
+          <p>It includes swimming, zip line, push and pull and other actions which work according to the situation or scenario of the game.</p>
+        </section>
+
+        <section class="guide-panel" id="new-game-menu">
+          <h2>New Game Menu</h2>
+
+          <h3>Practice Mode</h3>
+          <p>Toggle tutorial mode on to play tutorial in practice mode.</p>
+          <p>It is recommended to play practice mode to get yourself ready for the real Antara world and its enemies.</p>
+
+          <h3>Bonus Mode</h3>
+          <p>Best chance to earn AQ coin and other resources to buy valuable items.</p>
+          <p>Entry fees for one bonus round: 20 FA and 2 AQ coins.</p>
+          <p>Be aware of evil orc and try to get all FOA coins in the shortest time.</p>
+
+          <h3>Random Mode</h3>
+          <p>It will drive you boss fight rounds in any scenario.</p>
+
+          <h3>Story Mode</h3>
+          <p>This is the real story or gameplay where every step counts and in future decides whether your Antara world is saved or not.</p>
+        </section>
+
+        <section class="guide-panel" id="resources">
+          <h2>Resources</h2>
+          <p>Collect resources by killing enemies to spawn enemies and to build your castle.</p>
+        </section>
+
+        <section class="guide-panel" id="inventory">
+          <h2>Inventory (Game Play)</h2>
+          <p>On pressing the default key “I”, you can go to inventory, where you can see all your current items.</p>
+          <p>Beside that, you can craft items in inventory and equip or unequip items too.</p>
+        </section>
+
+        <section class="guide-panel" id="attacks">
+          <h2>Attacks</h2>
+
+          <h3>Weak Attacks</h3>
+          <p>By default pressing left mouse button, for each weapon it is a unique weak attack.</p>
+
+          <h3>Strong Attacks</h3>
+          <p>By default pressing middle wheel button, similarly each weapon has a unique strong attack.</p>
+
+          <h3>Magic Attacks</h3>
+          <p>When your magic ball reaches the required level, you can perform magic attack and it will affect nearby enemies.</p>
+          <p>By default magic attack key is “L”.</p>
+
+          <h3>Create Allies Attack</h3>
+          <p>It only works if you have 1 bone, 1 animal skin and 1 meat resource in your inventory.</p>
+          <p>It enlarges a small wild creature on ground and makes it your ally.</p>
+          <p>It works only in one island. It cannot swim or move forward with you.</p>
+        </section>
+
+        <section class="guide-panel" id="gameplay-menus">
+          <h2>Gameplay Menus and Missions Objective</h2>
+
+          <h3>Pause Menu</h3>
+          <p>On pressing Escape your game will pause and you can select different menus.</p>
+
+          <h3>Light Toggles</h3>
+          <p>You can set your light according to your requirements.</p>
+
+          <h3>Hide Canvas</h3>
+          <p>Use this if you want to record or stream your gameplay.</p>
+
+          <h3>Mission Panel</h3>
+          <p>To view your missions in the scenarios and check if they are clear or unclear by checking tick or not.</p>
+
+          <h3>Save and Load Panel</h3>
+          <p>You can save and load your mission progress.</p>
+          <p>For saving new, you have to tick save in new slot. You can save up to 5 slots. If it is full, you can overwrite any slot.</p>
+
+          <h3>Return to Main Menu and Desktop</h3>
+          <p>For saving your kills, level progress and score you should press it. Do not close the game without it, otherwise no progress will be saved.</p>
+          <p>Other menus are same as per main menu.</p>
+        </section>
+
+        <section class="guide-panel" id="mission-objects">
+          <h2>Mission Objects</h2>
+          <p>This left mission panel with ant face displays all mission steps by step which you need to accomplish.</p>
+          <p>On pressing “O” key by default this panel will toggle on and off. It will update automatically on completing each mission.</p>
+        </section>
+
+        <section class="guide-panel" id="minimap">
+          <h2>MiniMap</h2>
+          <p>On pressing by default “M” key you can maximize or minimize minimap.</p>
+          <p>It shows your enemies, rides, and some missions. Sometimes it will show some mission related characters.</p>
+          <p>On maximize map you can zoom in and zoom out to see the full map or a specific area.</p>
+        </section>
+
+        <section class="guide-panel" id="abilities">
+          <h2>Abilities</h2>
+          <p>These abilities give you super boost. It is still in progress and will be explained when launched.</p>
+          <p>For now you can swim, which is enabled by default.</p>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="search-popup" id="searchPopup">
+    <div class="search-popup-box">
+      <h3>Select Search Result</h3>
+      <div id="searchResults"></div>
+    </div>
+  </div>
+
+  <script>
+    const guideButtons = document.querySelectorAll('.guide-btn');
+    const guidePanels = document.querySelectorAll('.guide-panel');
+    const searchInput = document.getElementById('guideSearch');
+    const popup = document.getElementById('searchPopup');
+    const resultsBox = document.getElementById('searchResults');
+
+    function setActivePanel(panelId){
+      guideButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.guide === panelId));
+      guidePanels.forEach(panel => panel.classList.toggle('active', panel.id === panelId));
+    }
+
+    guideButtons.forEach(btn => {
+      btn.addEventListener('click', () => setActivePanel(btn.dataset.guide));
+    });
+
+    function clearHighlights(){
+      guidePanels.forEach(panel => {
+        panel.querySelectorAll('.highlight').forEach(el => {
+          el.replaceWith(document.createTextNode(el.textContent));
+        });
+      });
+    }
+
+    function highlightText(panel, query){
+      const walker = document.createTreeWalker(panel, NodeFilter.SHOW_TEXT, null);
+      const textNodes = [];
+      while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+      const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+
+      textNodes.forEach(node => {
+        const text = node.nodeValue;
+        if (!regex.test(text)) return;
+
+        const span = document.createElement('span');
+        span.innerHTML = text.replace(regex, m => `<span class="highlight">${m}</span>`);
+        node.parentNode.replaceChild(span, node);
+      });
+    }
+
+    function openPanel(panelId, query){
+      clearHighlights();
+      setActivePanel(panelId);
+      const panel = document.getElementById(panelId);
+      if (query) highlightText(panel, query);
+      panel.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      clearHighlights();
+
+      if (q.length < 2){
+        popup.style.display = 'none';
+        return;
+      }
+
+      const matches = [];
+      guidePanels.forEach(panel => {
+        const text = panel.innerText.toLowerCase();
+        if (text.includes(q)) matches.push(panel);
+      });
+
+      if (matches.length === 1){
+        popup.style.display = 'none';
+        openPanel(matches[0].id, q);
+        return;
+      }
+
+      if (matches.length > 1){
+        resultsBox.innerHTML = '';
+        matches.forEach(panel => {
+          const item = document.createElement('div');
+          item.className = 'search-result';
+          item.textContent = panel.querySelector('h2').textContent;
+          item.onclick = () => {
+            popup.style.display = 'none';
+            openPanel(panel.id, q);
+          };
+          resultsBox.appendChild(item);
+        });
+        popup.style.display = 'flex';
+        return;
+      }
+
+      popup.style.display = 'none';
+    });
+
+    popup.addEventListener('click', (e) => {
+      if (e.target === popup) popup.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

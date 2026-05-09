@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Fate of Antara | CGI BUZZ Studio</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Fate of Antara is a story-driven single-player RPG where the elemental ant nations of Fire, Earth, Water, and Air unite against Norbakh’s darkness.">
+	<meta name="keywords" content="Fate of Antara, CGI BUZZ Studio, Steam, RPG, action-adventure, strategy, fantasy game">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/owl.carousel.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/animate.css"/>
+
+<style>
+
+body{
+	background:
+	radial-gradient(circle at top, rgba(180,0,0,0.25), transparent 40%),
+	linear-gradient(180deg,#080808 0%, #120000 40%, #050505 100%);
+	background-attachment: fixed;
+	overflow-x:hidden;
+}
+
+.red-particles{
+	position:fixed;
+	inset:0;
+	pointer-events:none;
+	z-index:-1;
+}
+
+.red-particles span{
+	position:absolute;
+	display:block;
+	width:3px;
+	height:3px;
+	background:#ff2b2b;
+	border-radius:50%;
+	box-shadow:0 0 10px #ff0000;
+	animation: floatParticle linear infinite;
+	opacity:.7;
+}
+
+@keyframes floatParticle{
+
+	0%{
+		transform:translateY(100vh) scale(0.5);
+		opacity:0;
+	}
+
+	10%{
+		opacity:.7;
+	}
+
+	100%{
+		transform:translateY(-120px) scale(1.2);
+		opacity:0;
+	}
+
+}
+
+.hero-section:before,
+.page-info-section:before,
+.review-section:before,
+.recent-game-section:before,
+.community-page:before{
+	content:'';
+	position:absolute;
+	inset:0;
+	background:rgba(0,0,0,0.55);
+}
+
+.hero-section,
+.page-info-section,
+.review-section,
+.recent-game-section,
+.community-page{
+	position:relative;
+}
+
+.community-links-box{
+	margin-top:40px;
+	padding:35px;
+	border-radius:24px;
+	background:rgba(10,10,10,0.88);
+	border:1px solid rgba(255,255,255,0.06);
+	box-shadow:
+	0 0 35px rgba(255,0,0,0.08),
+	0 0 80px rgba(0,0,0,0.35);
+}
+
+.community-links-box h3{
+	font-size:38px;
+	color:#fff;
+	margin-bottom:18px;
+	font-weight:700;
+}
+
+.community-links-box p{
+	color:#cfcfcf;
+	line-height:1.9;
+	margin-bottom:28px;
+}
+
+.community-buttons{
+	display:flex;
+	flex-wrap:wrap;
+	gap:18px;
+}
+
+.community-buttons a{
+	display:inline-flex;
+	align-items:center;
+	gap:12px;
+	padding:16px 26px;
+	border-radius:14px;
+	text-decoration:none;
+	font-weight:700;
+	color:#fff;
+	background:rgba(255,255,255,0.06);
+	border:1px solid rgba(255,255,255,0.08);
+	transition:0.35s;
+}
+
+.community-buttons a:hover{
+	transform:translateY(-4px);
+	background:rgba(255,80,80,0.18);
+	border-color:rgba(255,120,120,0.25);
+}
+
+.community-buttons i{
+	font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="red-particles">
+
+<span style="left:0%; animation-duration:8s;"></span>
+<span style="left:10%; animation-duration:10s;"></span>
+<span style="left:20%; animation-duration:12s;"></span>
+<span style="left:30%; animation-duration:14s;"></span>
+<span style="left:40%; animation-duration:9s;"></span>
+<span style="left:50%; animation-duration:11s;"></span>
+<span style="left:60%; animation-duration:13s;"></span>
+<span style="left:70%; animation-duration:15s;"></span>
+<span style="left:80%; animation-duration:10s;"></span>
+<span style="left:90%; animation-duration:12s;"></span>
+
+</div>
+
+<!-- PRELOADER -->
+<div id="preloder">
+	<div class="loader"></div>
+</div>
+
+<!-- HEADER -->
+<header class="header-section">
+
+	<div class="container">
+
+		<a class="site-logo" href="https://fateofantara.com">
+
+			<img src="img/logo.png" alt="Fate of Antara">
+
+		</a>
+
+		<div class="user-panel">
+
+	<a
+		href="https://steamcommunity.com/app/4015060"
+		target="_blank"
+		class="community-btn"
+	>
+		<i class="fa fa-steam"></i>
+		Steam Community
+	</a>
+
+	<a
+		href="https://discord.gg/TdDky44mdE"
+		target="_blank"
+		class="community-btn discord-btn"
+	>
+		<i class="fa fa-comments"></i>
+		Discord
+	</a>
+
+</div>
+
+		<div class="nav-switch">
+			<i class="fa fa-bars"></i>
+		</div>
+
+		<nav class="main-menu">
+
+			<ul>
+
+				<li><a href="index.html">Home</a></li>
+				<li><a href="review.html">Game</a></li>
+				<li><a href="categories.html">News</a></li>
+				<li><a href="community.html">Community</a></li>
+				<li><a href="guide.html">Road Map / Guide</a></li>
+				<li><a href="contact.html">Contact</a></li>
+
+			</ul>
+
+		</nav>
+
+	</div>
+
+</header>
+
+<!-- LATEST NEWS -->
+<div class="latest-news-section" style="background:linear-gradient(90deg,#1a0000,#000000);">
+
+	<div class="ln-title">
+		Latest News
+	</div>
+
+	<div class="news-ticker">
+
+		<div class="news-ticker-contant">
+
+			<div class="nt-item">
+				<span class="new">new</span>
+				Explore the world of Antara, where four elemental nations rise against Norbakh.
+			</div>
+
+			<div class="nt-item">
+				<span class="strategy">strategy</span>
+				Join the Discord and follow development news.
+			</div>
+
+			<div class="nt-item">
+				<span class="racing">steam</span>
+				Join the Steam Community and share your feedback.
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<!-- PAGE INFO -->
+<section class="page-info-section set-bg" data-setbg="img/page-top-bg/4.jpg">
+
+	<div class="pi-content">
+
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-xl-5 col-lg-6 text-white">
+
+					<h2>Join the Community</h2>
+
+					<p>
+						A story-driven single-player RPG where four elemental ant nations fight for the fate of Antara.
+					</p>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+
+<!-- COMMUNITY SECTION -->
+<section class="page-section community-page set-bg" data-setbg="img/community-bg.jpg">
+
+	<div class="community-warp spad">
+
+		<div class="container">
+
+			<div class="row">
+
+				<div class="col-md-6">
+
+					<h3 class="community-top-title">
+						Community Channels (4)
+					</h3>
+
+				</div>
+
+				<div class="col-md-6 text-lg-right">
+
+					<form class="community-filter">
+
+						<label for="fdf5">
+							Show
+						</label>
+
+						<select id="fdf5">
+
+							<option value="#">
+								All Posts
+							</option>
+
+						</select>
+
+					</form>
+
+				</div>
+
+			</div>
+
+			<ul class="community-post-list">
+
+				<li>
+
+					<div class="community-post">
+
+						<div class="author-avator set-bg" data-setbg="img/authors/1.jpg"></div>
+
+						<div class="post-content">
+
+							<h5>
+								CGI BUZZ Studio
+								<span>posted an update</span>
+							</h5>
+
+							<div class="post-date">
+								27 Apr, 2026
+							</div>
+
+							<p>
+								Share screenshots, updates, and feedback with the Fate of Antara community.
+							</p>
+
+						</div>
+
+					</div>
+
+				</li>
+
+				<li>
+
+					<div class="community-post">
+
+						<div class="author-avator set-bg" data-setbg="img/authors/8.jpg"></div>
+
+						<div class="post-content">
+
+							<h5>
+								Fate of Antara
+								<span>posted an update</span>
+							</h5>
+
+							<div class="post-date">
+								27 Apr, 2026
+							</div>
+
+							<p>
+								Join Steam Community discussions and share gameplay ideas.
+							</p>
+
+						</div>
+
+					</div>
+
+				</li>
+
+			</ul>
+
+			<!-- COMMUNITY BUTTONS -->
+
+			<div class="community-links-box">
+
+				<h3>
+					Official Community Platforms
+				</h3>
+
+				<p>
+
+					Join the official Fate of Antara communities to share screenshots,
+					gameplay ideas, suggestions, bug reports and connect with players.
+
+				</p>
+
+				<div class="community-buttons">
+
+					<a href="https://store.steampowered.com/app/4015060/Fate_of_Antara/" target="_blank">
+
+						<i class="fa fa-steam"></i>
+
+						Steam Store
+
+					</a>
+
+					<a href="https://steamcommunity.com/app/4015060" target="_blank">
+
+						<i class="fa fa-users"></i>
+
+						Steam Community
+
+					</a>
+
+					<a href="https://discord.gg/TdDky44mdE" target="_blank">
+
+						<i class="fa fa-comments"></i>
+
+						Discord Server
+
+					</a>
+
+					<a href="https://www.facebook.com/profile.php?id=61588843092407" target="_blank">
+
+						<i class="fa fa-facebook"></i>
+
+						Facebook Page
+
+					</a>
+
+					<a href="https://www.youtube.com/@FateofAntara" target="_blank">
+
+						<i class="fa fa-youtube-play"></i>
+
+						YouTube Channel
+
+					</a>
+
+				</div>
+
+			</div>
+
+			<!-- PAGINATION -->
+
+			<div class="site-pagination sp-style-2">
+
+				<span class="active">01.</span>
+
+				<a href="https://store.steampowered.com/app/4015060/Fate_of_Antara/" target="_blank">
+					Steam Store
+				</a>
+
+				<a href="https://steamcommunity.com/app/4015060" target="_blank">
+					Steam Community
+				</a>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+
+<!-- FOOTER TOP -->
+<section class="footer-top-section">
+
+	<div class="container">
+
+		<div class="footer-top-bg">
+
+		
+
+		</div>
+
+		<div class="row">
+
+			<div class="col-lg-4">
+
+				<div class="footer-logo text-white">
+
+					<img src="img/footer-logo.png" alt="">
+
+					<p>
+						Fast-paced fantasy combat, exploration,
+						and elemental storytelling built for
+						single-player adventure.
+					</p>
+
+				</div>
+
+			</div>
+
+			<div class="col-lg-4 col-md-6">
+
+				<div class="footer-widget mb-5 mb-md-0">
+
+					<h4 class="fw-title">
+						Useful Links
+					</h4>
+
+					<div class="latest-blog">
+
+						<div class="lb-item">
+
+							<div class="lb-thumb set-bg" data-setbg="img/latest-blog/1.png"></div>
+
+							<div class="lb-content">
+
+								<div class="lb-date">
+									Fate of Antara
+								</div>
+
+								<p>
+									Follow the Book of Elements and uncover the destiny of Antara.
+								</p>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="col-lg-4 col-md-6">
+
+				<div class="footer-widget">
+
+					<h4 class="fw-title">
+						Top Comments
+					</h4>
+
+					<div class="top-details">
+
+						<div class="tc-item">
+
+							<div class="tc-thumb set-bg" data-setbg="img/authors/1.jpg"></div>
+
+							<div class="tc-content">
+
+								<p>
+
+									<a href="#">
+									Andrew&nbsp; </a>
+
+									<span>on LOve the work and effort you put in this project</span>
+
+									
+
+								</p>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-section">
+
+	<div class="container">
+
+		<ul class="footer-menu">
+
+			<li><a href="index.html">Home</a></li>
+			<li><a href="review.html">Game</a></li>
+			<li><a href="categories.html">News</a></li>
+			<li><a href="community.html">Community</a></li>
+			<li><a href="guide.html">Road Map / Guide</a></li>
+			<li><a href="contact.html">Contact</a></li>
+
+		</ul>
+
+		<p class="copyright">
+
+			Copyright &copy;
+			<script>document.write(new Date().getFullYear());</script>
+
+			Fate of Antara | CGI BUZZ Studio
+
+		</p>
+
+	</div>
+
+</footer>
+
+<!-- JS -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.marquee.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
