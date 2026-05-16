@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block non-content directories
+Disallow: /css/
+Disallow: /js/
+
+Sitemap: https://fateofantara.com/sitemap.xml
