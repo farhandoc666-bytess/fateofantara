@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Quiz & Win – Free Fate of Antara | CGI BUZZ Studio</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Answer 15 questions correctly and win a free Steam key for Fate of Antara. One attempt per player. CGI BUZZ Studio quiz challenge.">
+	<meta name="keywords" content="Fate of Antara free key, quiz and win, free steam key, CGI BUZZ Studio giveaway, Fate of Antara giveaway">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="index, follow">
+	<link rel="canonical" href="https://fateofantara.com/quiz.html">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="Quiz & Win – Free Fate of Antara Steam Key">
+	<meta property="og:description" content="Answer 15 random questions correctly to win a free Steam key for Fate of Antara!">
+	<meta property="og:image" content="https://fateofantara.com/img/logo.png">
+	<meta property="og:url" content="https://fateofantara.com/quiz.html">
+	<meta property="og:site_name" content="Fate of Antara">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Quiz & Win – Free Fate of Antara Steam Key">
+	<meta name="twitter:description" content="Answer 15 random questions correctly to win a free Steam key!">
+	<meta name="twitter:image" content="https://fateofantara.com/img/logo.png">
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/style.css"/>
+	<!-- Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-9FD3X9YV4P"></script>
+	<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-9FD3X9YV4P');</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+	background:radial-gradient(circle at top,rgba(180,0,0,.28),transparent 42%),
+	linear-gradient(180deg,#080808 0%,#120000 40%,#050505 100%);
+	background-attachment:fixed;
+	min-height:100vh;
+	overflow-x:hidden;
+	font-family:'Roboto',sans-serif;
+}
+.red-particles{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.red-particles span{
+	position:absolute;display:block;width:3px;height:3px;
+	background:#ff2b2b;border-radius:50%;
+	box-shadow:0 0 10px #ff0000;
+	animation:floatP linear infinite;opacity:.6;
+}
+@keyframes floatP{
+	0%{transform:translateY(100vh) scale(.5);opacity:0;}
+	10%{opacity:.7;}
+	100%{transform:translateY(-120px) scale(1.2);opacity:0;}
+}
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.quiz-wrap{
+	position:relative;z-index:2;
+	max-width:860px;margin:0 auto;
+	padding:40px 20px 80px;
+}
+
+/* ─── HERO BANNER ─────────────────────────────────────────────── */
+.quiz-hero{
+	text-align:center;
+	padding:52px 30px 44px;
+	margin-bottom:40px;
+	border-radius:28px;
+	background:rgba(10,10,10,.88);
+	border:1px solid rgba(255,255,255,.07);
+	box-shadow:0 0 60px rgba(255,0,0,.09),0 0 120px rgba(0,0,0,.5);
+}
+.quiz-hero .crown{font-size:54px;display:block;margin-bottom:16px;line-height:1;}
+.quiz-hero h1{
+	font-size:clamp(28px,5vw,46px);font-weight:800;
+	background:linear-gradient(135deg,#ffd700,#ff8800);
+	-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+	margin-bottom:14px;line-height:1.1;
+}
+.quiz-hero p{color:#ccc;font-size:16px;line-height:1.8;max-width:580px;margin:0 auto 28px;}
+.prize-badge{
+	display:inline-flex;align-items:center;gap:10px;
+	padding:12px 24px;border-radius:50px;
+	background:linear-gradient(135deg,rgba(255,180,0,.15),rgba(255,80,0,.12));
+	border:1px solid rgba(255,200,50,.22);
+	color:#ffd700;font-weight:700;font-size:15px;margin-bottom:32px;
+}
+.prize-badge i{font-size:20px;}
+.rules-grid{
+	display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+	gap:16px;margin-bottom:32px;
+}
+.rule-card{
+	padding:18px 14px;border-radius:16px;
+	background:rgba(255,255,255,.04);
+	border:1px solid rgba(255,255,255,.07);text-align:center;
+}
+.rule-card .ri{font-size:26px;display:block;margin-bottom:8px;}
+.rule-card p{color:#ccc;font-size:13px;line-height:1.6;}
+.start-btn{
+	display:inline-flex;align-items:center;gap:12px;
+	padding:18px 40px;border-radius:16px;
+	background:linear-gradient(135deg,#b30000,#ff3300);
+	border:none;color:#fff;font-size:17px;font-weight:700;
+	cursor:pointer;letter-spacing:.5px;
+	box-shadow:0 0 30px rgba(255,50,0,.35);
+	transition:.35s;
+}
+.start-btn:hover{transform:translateY(-4px);box-shadow:0 0 50px rgba(255,50,0,.55);}
+
+/* ─── QUIZ BOX ────────────────────────────────────────────────── */
+#quiz-screen{display:none;}
+.quiz-box{
+	background:rgba(10,10,10,.9);
+	border:1px solid rgba(255,255,255,.07);
+	border-radius:28px;padding:38px;
+	box-shadow:0 0 50px rgba(255,0,0,.08),0 0 100px rgba(0,0,0,.5);
+}
+
+/* progress */
+.progress-bar-wrap{
+	background:rgba(255,255,255,.08);border-radius:30px;
+	height:8px;margin-bottom:28px;overflow:hidden;
+}
+.progress-bar-fill{
+	height:100%;border-radius:30px;
+	background:linear-gradient(90deg,#ff3300,#ffd700);
+	transition:width .5s ease;
+}
+.q-meta{
+	display:flex;justify-content:space-between;align-items:center;
+	margin-bottom:18px;flex-wrap:wrap;gap:10px;
+}
+.q-number{
+	background:linear-gradient(135deg,#ffcc00,#ff8800);
+	color:#000;font-weight:800;
+	padding:8px 16px;border-radius:10px;font-size:14px;
+}
+.q-timer{
+	display:flex;align-items:center;gap:8px;
+	color:#ff8888;font-weight:700;font-size:16px;
+}
+.q-timer.warning{color:#ff2222;animation:timerPulse .5s infinite alternate;}
+@keyframes timerPulse{from{opacity:1;}to{opacity:.4;}}
+.q-category{
+	color:#888;font-size:13px;
+	padding:6px 12px;border-radius:8px;
+	background:rgba(255,255,255,.05);
+}
+.question-text{
+	color:#fff;font-size:clamp(16px,2.5vw,21px);
+	line-height:1.65;font-weight:500;
+	margin-bottom:30px;
+}
+.options-grid{
+	display:grid;grid-template-columns:1fr 1fr;
+	gap:14px;margin-bottom:30px;
+}
+@media(max-width:580px){.options-grid{grid-template-columns:1fr;}}
+.opt-btn{
+	width:100%;padding:18px 20px;
+	border-radius:14px;border:1px solid rgba(255,255,255,.1);
+	background:rgba(255,255,255,.05);
+	color:#ddd;font-size:15px;font-weight:500;
+	text-align:left;cursor:pointer;transition:.25s;
+	display:flex;align-items:center;gap:14px;
+}
+.opt-btn:hover:not(:disabled){
+	border-color:rgba(255,180,0,.4);
+	background:rgba(255,180,0,.1);color:#fff;
+	transform:translateX(5px);
+}
+.opt-btn .opt-letter{
+	width:32px;height:32px;flex-shrink:0;
+	border-radius:50%;border:2px solid rgba(255,255,255,.2);
+	display:flex;align-items:center;justify-content:center;
+	font-weight:800;font-size:13px;color:#aaa;
+}
+.opt-btn.correct{
+	background:rgba(0,255,100,.12)!important;
+	border-color:rgba(0,255,100,.4)!important;color:#44ff88!important;
+}
+.opt-btn.correct .opt-letter{border-color:#44ff88;color:#44ff88;}
+.opt-btn.wrong{
+	background:rgba(255,0,0,.12)!important;
+	border-color:rgba(255,0,0,.4)!important;color:#ff5555!important;
+}
+.opt-btn.wrong .opt-letter{border-color:#ff5555;color:#ff5555;}
+.opt-btn:disabled{cursor:not-allowed;}
+
+/* feedback */
+.answer-feedback{
+	text-align:center;padding:18px;
+	border-radius:14px;margin-bottom:22px;
+	font-size:17px;font-weight:700;
+	display:none;
+}
+.answer-feedback.show{display:block;}
+.answer-feedback.ok{background:rgba(0,255,100,.1);border:1px solid rgba(0,255,100,.25);color:#44ff88;}
+.answer-feedback.bad{background:rgba(255,0,0,.1);border:1px solid rgba(255,0,0,.25);color:#ff5555;}
+.score-live{
+	text-align:center;color:#888;font-size:14px;margin-bottom:8px;
+}
+
+/* ─── WIN SCREEN ──────────────────────────────────────────────── */
+#win-screen{display:none;}
+.win-box{
+	text-align:center;
+	padding:52px 36px;
+	border-radius:28px;
+	background:rgba(10,10,10,.92);
+	border:1px solid rgba(255,215,0,.18);
+	box-shadow:0 0 80px rgba(255,180,0,.12),0 0 140px rgba(0,0,0,.6);
+}
+.win-box .trophy{font-size:72px;display:block;margin-bottom:20px;animation:trophySpin 3s ease-in-out infinite alternate;}
+@keyframes trophySpin{from{transform:scale(1) rotate(-5deg);}to{transform:scale(1.12) rotate(5deg);}}
+.win-box h2{
+	font-size:clamp(26px,4.5vw,42px);font-weight:800;
+	background:linear-gradient(135deg,#ffd700,#ff8800);
+	-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+	margin-bottom:14px;
+}
+.win-box p{color:#ccc;font-size:16px;line-height:1.8;max-width:560px;margin:0 auto 28px;}
+.win-score-badge{
+	display:inline-flex;align-items:center;gap:10px;
+	padding:12px 26px;border-radius:50px;
+	background:linear-gradient(135deg,rgba(255,180,0,.15),rgba(255,80,0,.1));
+	border:1px solid rgba(255,200,50,.22);
+	color:#ffd700;font-weight:700;font-size:15px;margin-bottom:32px;
+}
+.code-reveal{
+	background:rgba(0,0,0,.6);
+	border:2px dashed rgba(255,215,0,.35);
+	border-radius:18px;padding:28px;
+	margin-bottom:32px;
+}
+.code-reveal p.cl{color:#888;font-size:13px;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;}
+.code-reveal .the-code{
+	font-family:'Courier New',monospace;
+	font-size:clamp(20px,3vw,28px);
+	font-weight:800;color:#ffd700;
+	letter-spacing:4px;word-break:break-all;
+}
+.copy-btn{
+	display:inline-flex;align-items:center;gap:8px;
+	padding:10px 20px;border-radius:10px;
+	background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.25);
+	color:#ffd700;font-size:13px;font-weight:700;
+	cursor:pointer;transition:.3s;margin-top:14px;
+}
+.copy-btn:hover{background:rgba(255,215,0,.2);}
+.steam-cta{
+	display:inline-flex;align-items:center;gap:12px;
+	padding:18px 36px;border-radius:16px;
+	background:linear-gradient(135deg,#1a4a7a,#2a6aaa);
+	border:1px solid rgba(100,180,255,.25);
+	color:#fff;font-size:16px;font-weight:700;
+	text-decoration:none;transition:.35s;margin-top:10px;
+}
+.steam-cta:hover{transform:translateY(-4px);box-shadow:0 0 40px rgba(50,130,200,.4);color:#fff;}
+
+/* ─── LOSE SCREEN ─────────────────────────────────────────────── */
+#lose-screen{display:none;}
+.lose-box{
+	text-align:center;padding:52px 36px;border-radius:28px;
+	background:rgba(10,10,10,.9);
+	border:1px solid rgba(255,50,50,.15);
+	box-shadow:0 0 60px rgba(255,0,0,.08);
+}
+.lose-box .skull{font-size:68px;display:block;margin-bottom:20px;}
+.lose-box h2{
+	color:#ff4444;font-size:clamp(24px,4vw,38px);
+	font-weight:800;margin-bottom:14px;
+}
+.lose-box p{color:#ccc;font-size:16px;line-height:1.8;max-width:520px;margin:0 auto 28px;}
+.lose-score{
+	padding:16px 28px;border-radius:14px;
+	background:rgba(255,50,50,.08);
+	border:1px solid rgba(255,50,50,.18);
+	color:#ff8888;font-weight:700;font-size:16px;
+	display:inline-block;margin-bottom:28px;
+}
+
+/* ─── BANNED SCREEN ───────────────────────────────────────────── */
+#banned-screen{display:none;}
+.banned-box{
+	text-align:center;padding:52px 36px;border-radius:28px;
+	background:rgba(10,10,10,.9);
+	border:1px solid rgba(255,0,0,.2);
+}
+.banned-box .ban-icon{font-size:68px;display:block;margin-bottom:20px;}
+.banned-box h2{color:#ff3333;font-size:28px;font-weight:800;margin-bottom:14px;}
+.banned-box p{color:#aaa;font-size:15px;line-height:1.8;max-width:480px;margin:0 auto;}
+
+/* ─── WARNING MODAL ───────────────────────────────────────────── */
+.modal-overlay{
+	position:fixed;inset:0;z-index:9999;
+	background:rgba(0,0,0,.85);
+	display:flex;align-items:center;justify-content:center;
+	padding:20px;display:none;
+}
+.modal-overlay.show{display:flex;}
+.modal-card{
+	max-width:440px;width:100%;padding:40px;border-radius:24px;
+	background:rgba(15,5,5,.98);
+	border:2px solid rgba(255,50,50,.3);
+	text-align:center;
+}
+.modal-card .warn-icon{font-size:52px;display:block;margin-bottom:18px;}
+.modal-card h3{color:#fff;font-size:22px;font-weight:800;margin-bottom:14px;}
+.modal-card p{color:#ccc;font-size:15px;line-height:1.7;margin-bottom:28px;}
+.modal-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.modal-btns button{
+	padding:13px 26px;border-radius:12px;
+	font-size:14px;font-weight:700;cursor:pointer;border:none;transition:.3s;
+}
+.btn-stay{background:linear-gradient(135deg,#b30000,#ff3300);color:#fff;}
+.btn-stay:hover{transform:translateY(-2px);}
+.btn-leave{background:rgba(255,255,255,.08);color:#aaa;border:1px solid rgba(255,255,255,.1)!important;}
+.btn-leave:hover{background:rgba(255,50,50,.15);color:#ff8888;}
+
+/* ─── NO CODES ────────────────────────────────────────────────── */
+.no-codes-msg{
+	padding:20px;border-radius:14px;
+	background:rgba(255,180,0,.07);
+	border:1px solid rgba(255,180,0,.2);
+	color:#ffd700;text-align:center;font-size:15px;
+	margin-top:20px;
+}
+</style>
+</head>
+<body>
+<div class="red-particles">
+<span style="left:0%;animation-duration:8s;"></span><span style="left:10%;animation-duration:10s;"></span>
+<span style="left:20%;animation-duration:12s;"></span><span style="left:30%;animation-duration:14s;"></span>
+<span style="left:40%;animation-duration:9s;"></span><span style="left:50%;animation-duration:11s;"></span>
+<span style="left:60%;animation-duration:13s;"></span><span style="left:70%;animation-duration:15s;"></span>
+<span style="left:80%;animation-duration:10s;"></span><span style="left:90%;animation-duration:12s;"></span>
+</div>
+
+<!-- PRELOADER -->
+<div id="preloder"><div class="loader"></div></div>
+
+<!-- HEADER -->
+<header class="header-section">
+	<div class="container">
+		<a class="site-logo" href="index.html"><img src="img/logo.png" alt="Fate of Antara"></a>
+		<div class="user-panel">
+			<a href="https://store.steampowered.com/app/4015060/Fate_of_Antara/" target="_blank">Steam</a>
+			/ <a href="https://discord.gg/TdDky44mdE" target="_blank">Discord</a>
+		</div>
+		<div class="nav-switch"><i class="fa fa-bars"></i></div>
+		<nav class="main-menu">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="review.html">Game</a></li>
+				<li><a href="categories.html">News</a></li>
+				<li><a href="community.html">Community</a></li>
+				<li><a href="guide.html">Road Map / Guide</a></li>
+				<li><a href="tools.html" style="color:#f5c842;">&#9876; Tools</a></li>
+				<li><a href="quiz.html" style="color:#ffd700;">&#127942; Quiz &amp; Win</a></li>
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<!-- NEWS TICKER -->
+<div class="latest-news-section" style="background:linear-gradient(90deg,#1a0000,#000000);">
+	<div class="ln-title">Quiz & Win</div>
+	<div class="news-ticker">
+		<div class="news-ticker-contant">
+			<div class="nt-item"><span class="new">new</span> Answer 15 questions correctly — win a FREE Fate of Antara Steam key!</div>
+			<div class="nt-item"><span class="strategy">rules</span> One attempt per player. No tab-switching allowed. No AI cheating!</div>
+			<div class="nt-item"><span class="racing">prize</span> 200 Steam keys available. Limited — play now!</div>
+		</div>
+	</div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="quiz-wrap">
+
+<!-- ── HERO (start screen) ── -->
+<div id="start-screen">
+	<div class="quiz-hero">
+		<span class="crown">&#127942;</span>
+		<h1>Answer &amp; Win<br>Free Fate of Antara</h1>
+		<p>Think you're smart enough? Answer <strong>15 random questions</strong> across history, science, physics, psychology, space and more. Get them all right and claim your <strong>free Steam key</strong>!</p>
+		<div class="prize-badge"><i class="fa fa-steam"></i> FREE Steam Key for Fate of Antara</div>
+		<div class="rules-grid">
+			<div class="rule-card"><span class="ri">&#10067;</span><p>15 random questions from 327 total</p></div>
+			<div class="rule-card"><span class="ri">&#9201;</span><p>30 seconds per question</p></div>
+			<div class="rule-card"><span class="ri">&#9940;</span><p>One attempt per player — no second chances</p></div>
+			<div class="rule-card"><span class="ri">&#128683;</span><p>Don't switch tabs — quiz ends immediately</p></div>
+		</div>
+		<button class="start-btn" onclick="startQuiz()"><i class="fa fa-play"></i> Start the Quiz</button>
+	</div>
+</div>
+
+<!-- ── QUIZ SCREEN ── -->
+<div id="quiz-screen">
+	<div class="quiz-box">
+		<div class="progress-bar-wrap"><div class="progress-bar-fill" id="prog-bar" style="width:0%"></div></div>
+		<div class="q-meta">
+			<div class="q-number" id="q-num">Question 1 / 15</div>
+			<div class="q-timer" id="q-timer"><i class="fa fa-clock-o"></i> <span id="timer-val">30</span>s</div>
+			<div class="q-category" id="q-cat"></div>
+		</div>
+		<div class="question-text" id="q-text"></div>
+		<div class="options-grid" id="opts-grid"></div>
+		<div class="answer-feedback" id="a-feedback"></div>
+		<div class="score-live" id="score-live">Score: 0 / 0</div>
+	</div>
+</div>
+
+<!-- ── WIN SCREEN ── -->
+<div id="win-screen">
+	<div class="win-box">
+		<span class="trophy">&#127942;</span>
+		<h2>Congratulations! You Won!</h2>
+		<p>You answered all 15 questions correctly. Here is your exclusive <strong>free Steam key</strong> for Fate of Antara. Redeem it on Steam — one use only!</p>
+		<div class="win-score-badge"><i class="fa fa-star"></i> Perfect Score: 15 / 15</div>
+		<div class="code-reveal">
+			<p class="cl">&#127381; Your Exclusive Steam Key</p>
+			<div class="the-code" id="win-code">---</div>
+			<button class="copy-btn" onclick="copyCode()"><i class="fa fa-copy"></i> Copy Code</button>
+		</div>
+		<p style="color:#888;font-size:13px;margin-bottom:20px;">To redeem: Open Steam &#8594; Games &#8594; Activate a Product on Steam &#8594; Paste code</p>
+		<a href="https://store.steampowered.com/app/4015060/Fate_of_Antara/" target="_blank" class="steam-cta"><i class="fa fa-steam"></i> Open Fate of Antara on Steam</a>
+		<div style="margin-top:28px;">
+			<a href="community.html" style="color:#888;font-size:14px;">Join our Community</a>
+			&nbsp;&#183;&nbsp;
+			<a href="https://discord.gg/TdDky44mdE" target="_blank" style="color:#888;font-size:14px;">Discord</a>
+		</div>
+	</div>
+</div>
+
+<!-- ── LOSE SCREEN ── -->
+<div id="lose-screen">
+	<div class="lose-box">
+		<span class="skull">&#128128;</span>
+		<h2>Quiz Over!</h2>
+		<p>That's not the right answer — the quiz has ended. Only perfect scores win the key. Study up and try your knowledge!</p>
+		<div class="lose-score" id="lose-score-txt">You scored 0 / 15</div>
+		<p style="color:#888;font-size:14px;margin-bottom:28px;">Remember: One attempt per player. You cannot replay this quiz.</p>
+		<a href="https://store.steampowered.com/app/4015060/Fate_of_Antara/" target="_blank" class="steam-cta"><i class="fa fa-steam"></i> Get Fate of Antara on Steam</a>
+	</div>
+</div>
+
+<!-- ── BANNED SCREEN ── -->
+<div id="banned-screen">
+	<div class="banned-box">
+		<span class="ban-icon">&#128683;</span>
+		<h2>Access Denied</h2>
+		<p>You have already used your one attempt for this quiz challenge. Each player is allowed only a single try to keep competition fair. Thank you for playing!</p>
+		<div style="margin-top:28px;">
+			<a href="https://store.steampowered.com/app/4015060/Fate_of_Antara/" target="_blank" class="steam-cta"><i class="fa fa-steam"></i> Get Fate of Antara on Steam</a>
+		</div>
+	</div>
+</div>
+
+</div><!-- /quiz-wrap -->
+
+<!-- ── FOOTER ── -->
+<footer class="footer-section">
+	<div class="container">
+		<ul class="footer-menu">
+			<li><a href="index.html">Home</a></li>
+			<li><a href="review.html">Game</a></li>
+			<li><a href="categories.html">News</a></li>
+			<li><a href="community.html">Community</a></li>
+			<li><a href="guide.html">Road Map / Guide</a></li>
+			<li><a href="tools.html">&#9876; Tools</a></li>
+			<li><a href="quiz.html">&#127942; Quiz &amp; Win</a></li>
+			<li><a href="contact.html">Contact</a></li>
+		</ul>
+		<p class="copyright">Copyright &copy; 2026 Fate of Antara &mdash; CGI BUZZ Studio. All rights reserved.</p>
+	</div>
+</footer>
+
+<!-- ── WARNING MODAL ── -->
+<div class="modal-overlay" id="warn-modal">
+	<div class="modal-card">
+		<span class="warn-icon">&#9888;&#65039;</span>
+		<h3>&#9888; Warning! Don't Cheat!</h3>
+		<p>You tried to leave or switch tabs during the quiz. <strong>This is your final warning.</strong> If you do this again, your attempt will be permanently disqualified and you won't be able to play again.</p>
+		<div class="modal-btns">
+			<button class="btn-stay" onclick="dismissWarning()"><i class="fa fa-arrow-left"></i> Return to Quiz</button>
+			<button class="btn-leave" onclick="forceEnd()">Leave &amp; Forfeit</button>
+		</div>
+	</div>
+</div>
+
+<!-- JS -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.marquee.min.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════════════════
+const ALL_QUESTIONS = [{"q": "What is the psychological term for blaming others for your own faults?", "opts": ["Projection", "Regression", "Displacement", "Repression"], "ans": "A"}, {"q": "Which effect describes how people value things more when they own them?", "opts": ["Endowment effect", "Halo effect", "Placebo effect", "Dunning\u2013Kruger effect"], "ans": "A"}, {"q": "A person ignores facts that conflict with their beliefs. This is called:", "opts": ["Cognitive dissonance", "Confirmation bias", "Anchoring bias", "Recency bias"], "ans": "B"}, {"q": "The 'bystander effect' means people are LESS likely to help when:", "opts": ["They are tired", "Others are present", "The victim is a stranger", "It is night-time"], "ans": "B"}, {"q": "What is 'gaslighting'?", "opts": ["Making someone doubt their own reality", "Extreme jealousy", "Passive-aggressive behavior", "Fear of open spaces"], "ans": "A"}, {"q": "Maslow's hierarchy places which need at the very top?", "opts": ["Safety", "Self-actualisation", "Love", "Esteem"], "ans": "B"}, {"q": "Which bias makes people overestimate their own competence?", "opts": ["Dunning\u2013Kruger effect", "Impostor syndrome", "Anchoring", "Framing effect"], "ans": "A"}, {"q": "Classical conditioning was pioneered by which scientist?", "opts": ["Skinner", "Pavlov", "Freud", "Bandura"], "ans": "B"}, {"q": "What is 'operant conditioning'?", "opts": ["Learning through rewards/punishments", "Learning by watching others", "Learning through dreams", "Learning through repetition"], "ans": "A"}, {"q": "The term 'introvert' was popularised by which psychologist?", "opts": ["Freud", "Jung", "Adler", "Erikson"], "ans": "B"}, {"q": "Which part of Freud's model represents moral conscience?", "opts": ["Id", "Ego", "Superego", "Libido"], "ans": "C"}, {"q": "'Fight or flight' is controlled by which nervous system division?", "opts": ["Somatic", "Parasympathetic", "Sympathetic", "Central"], "ans": "C"}, {"q": "A child learns aggression by watching TV. This illustrates:", "opts": ["Classical conditioning", "Operant conditioning", "Social learning theory", "Cognitive development"], "ans": "C"}, {"q": "Short-term memory can hold roughly how many items at once?", "opts": ["3 plus or minus 1", "7 plus or minus 2", "12 plus or minus 3", "20 plus or minus 5"], "ans": "B"}, {"q": "What is 'Stockholm syndrome'?", "opts": ["Fear of strangers", "Bonding with one's captor", "Extreme homesickness", "Obsession with routine"], "ans": "B"}, {"q": "Which colour is most associated with trust in psychology?", "opts": ["Red", "Green", "Blue", "Yellow"], "ans": "C"}, {"q": "The 'placebo effect' demonstrates the power of:", "opts": ["Medicine", "Expectation", "Genetics", "Diet"], "ans": "B"}, {"q": "Phobia of spiders is called:", "opts": ["Arachnophobia", "Acrophobia", "Claustrophobia", "Xenophobia"], "ans": "A"}, {"q": "'Flow state' was described by psychologist:", "opts": ["Maslow", "Csikszentmihalyi", "Bandura", "Seligman"], "ans": "B"}, {"q": "Emotional intelligence (EQ) was popularised by:", "opts": ["Howard Gardner", "Daniel Goleman", "Martin Seligman", "Albert Bandura"], "ans": "B"}, {"q": "What is the speed of light in a vacuum (approx)?", "opts": ["300,000 km/s", "150,000 km/s", "450,000 km/s", "600,000 km/s"], "ans": "A"}, {"q": "Newton's second law states that Force equals:", "opts": ["Mass divided by acceleration", "Mass times acceleration", "Mass plus acceleration", "Acceleration divided by mass"], "ans": "B"}, {"q": "What is the unit of electrical resistance?", "opts": ["Ampere", "Volt", "Ohm", "Watt"], "ans": "C"}, {"q": "Which particle has no electric charge?", "opts": ["Proton", "Electron", "Neutron", "Positron"], "ans": "C"}, {"q": "E=mc\u00b2 was formulated by:", "opts": ["Newton", "Tesla", "Einstein", "Bohr"], "ans": "C"}, {"q": "Sound travels fastest through which medium?", "opts": ["Vacuum", "Air", "Water", "Steel"], "ans": "D"}, {"q": "Which law explains why a rocket moves forward when gas is expelled backward?", "opts": ["Newton's 1st law", "Newton's 2nd law", "Newton's 3rd law", "Boyle's law"], "ans": "C"}, {"q": "Absolute zero is approximately:", "opts": ["0\u00b0C", "-100\u00b0C", "-273\u00b0C", "-373\u00b0C"], "ans": "C"}, {"q": "What is the SI unit of energy?", "opts": ["Watt", "Newton", "Joule", "Pascal"], "ans": "C"}, {"q": "Which force keeps planets in orbit around the Sun?", "opts": ["Magnetic force", "Nuclear force", "Gravitational force", "Electromagnetic force"], "ans": "C"}, {"q": "The Doppler effect relates to changes in:", "opts": ["Temperature", "Wave frequency", "Light intensity", "Electric current"], "ans": "B"}, {"q": "What is the boiling point of water at sea level?", "opts": ["90\u00b0C", "100\u00b0C", "110\u00b0C", "80\u00b0C"], "ans": "B"}, {"q": "Which law states that the pressure and volume of a gas are inversely proportional?", "opts": ["Charles's law", "Boyle's law", "Avogadro's law", "Gay-Lussac's law"], "ans": "B"}, {"q": "Photons are particles of:", "opts": ["Sound", "Light", "Heat", "Electricity"], "ans": "B"}, {"q": "What is the unit of frequency?", "opts": ["Hertz", "Tesla", "Newton", "Kelvin"], "ans": "A"}, {"q": "The 'half-life' of a radioactive element refers to:", "opts": ["Time for all atoms to decay", "Time for half the atoms to decay", "Half the energy released", "Half the mass lost"], "ans": "B"}, {"q": "Which colour has the longest wavelength in the visible spectrum?", "opts": ["Violet", "Green", "Yellow", "Red"], "ans": "D"}, {"q": "Ohm's law states: V = ?", "opts": ["I/R", "I\u00d7R", "I+R", "I\u2212R"], "ans": "B"}, {"q": "Superconductivity occurs at:", "opts": ["High temperature", "Very low temperature", "High pressure", "Vacuum"], "ans": "B"}, {"q": "The study of heat and energy is called:", "opts": ["Optics", "Thermodynamics", "Kinematics", "Electrostatics"], "ans": "B"}, {"q": "In which year did World War I begin?", "opts": ["1910", "1912", "1914", "1916"], "ans": "C"}, {"q": "Who was the first President of the United States?", "opts": ["Abraham Lincoln", "John Adams", "Thomas Jefferson", "George Washington"], "ans": "D"}, {"q": "The French Revolution began in which year?", "opts": ["1776", "1789", "1799", "1815"], "ans": "B"}, {"q": "Which empire was ruled by Genghis Khan?", "opts": ["Ottoman", "Mongol", "Roman", "Persian"], "ans": "B"}, {"q": "The Berlin Wall fell in:", "opts": ["1985", "1987", "1989", "1991"], "ans": "C"}, {"q": "Who wrote the Communist Manifesto?", "opts": ["Lenin", "Stalin", "Marx and Engels", "Trotsky"], "ans": "C"}, {"q": "The atomic bomb was first used in warfare over:", "opts": ["Berlin", "Nagasaki", "Hiroshima", "Tokyo"], "ans": "C"}, {"q": "The Renaissance began in which country?", "opts": ["France", "England", "Italy", "Spain"], "ans": "C"}, {"q": "Which ancient wonder was located in Alexandria?", "opts": ["Colossus", "Hanging Gardens", "Great Pyramid", "Lighthouse"], "ans": "D"}, {"q": "Napoleon was exiled to which island after Waterloo?", "opts": ["Elba", "Corsica", "Saint Helena", "Malta"], "ans": "C"}, {"q": "The Magna Carta was signed in:", "opts": ["1066", "1215", "1415", "1605"], "ans": "B"}, {"q": "Who commanded the Allied forces on D-Day 1944?", "opts": ["Patton", "Churchill", "Eisenhower", "Montgomery"], "ans": "C"}, {"q": "The first country to grant women the right to vote was:", "opts": ["USA", "UK", "New Zealand", "France"], "ans": "C"}, {"q": "The Titanic sank in which year?", "opts": ["1910", "1911", "1912", "1913"], "ans": "C"}, {"q": "The Cold War was primarily between:", "opts": ["USA and China", "USA and USSR", "UK and Germany", "France and Russia"], "ans": "B"}, {"q": "Which civilisation built Machu Picchu?", "opts": ["Aztec", "Maya", "Inca", "Olmec"], "ans": "C"}, {"q": "The printing press was invented by:", "opts": ["Da Vinci", "Gutenberg", "Franklin", "Galileo"], "ans": "B"}, {"q": "Ancient Rome was founded (traditionally) in:", "opts": ["753 BC", "500 BC", "300 BC", "100 BC"], "ans": "A"}, {"q": "The first moon landing was in:", "opts": ["1965", "1967", "1969", "1971"], "ans": "C"}, {"q": "Which war ended with the Treaty of Versailles?", "opts": ["World War II", "The Crimean War", "The Napoleonic Wars", "World War I"], "ans": "D"}, {"q": "What is the largest ocean on Earth?", "opts": ["Atlantic", "Arctic", "Indian", "Pacific"], "ans": "D"}, {"q": "How many continents are there?", "opts": ["5", "6", "7", "8"], "ans": "C"}, {"q": "The Amazon River flows through which continent?", "opts": ["Africa", "Asia", "South America", "North America"], "ans": "C"}, {"q": "What is the capital of Australia?", "opts": ["Sydney", "Melbourne", "Canberra", "Brisbane"], "ans": "C"}, {"q": "Which country has the largest population?", "opts": ["India", "USA", "Russia", "China"], "ans": "D"}, {"q": "Mount Everest is in which mountain range?", "opts": ["Andes", "Alps", "Rockies", "Himalayas"], "ans": "D"}, {"q": "The Sahara Desert is on which continent?", "opts": ["Asia", "Africa", "Australia", "South America"], "ans": "B"}, {"q": "Which is the smallest country in the world?", "opts": ["Monaco", "San Marino", "Vatican City", "Liechtenstein"], "ans": "C"}, {"q": "What is the longest river in the world?", "opts": ["Amazon", "Yangtze", "Mississippi", "Nile"], "ans": "D"}, {"q": "Which country has the most natural lakes?", "opts": ["Russia", "Brazil", "Canada", "USA"], "ans": "C"}, {"q": "The Great Barrier Reef is located near:", "opts": ["South Africa", "Philippines", "Brazil", "Australia"], "ans": "D"}, {"q": "What is the capital of Japan?", "opts": ["Kyoto", "Osaka", "Hiroshima", "Tokyo"], "ans": "D"}, {"q": "Which African country has the largest area?", "opts": ["Nigeria", "South Africa", "Ethiopia", "Algeria"], "ans": "D"}, {"q": "The Strait of Gibraltar connects the Atlantic Ocean to:", "opts": ["Red Sea", "Black Sea", "Mediterranean Sea", "Baltic Sea"], "ans": "C"}, {"q": "Greenland is a territory of which country?", "opts": ["Canada", "Norway", "Iceland", "Denmark"], "ans": "D"}, {"q": "Which is the world's highest waterfall?", "opts": ["Niagara", "Angel Falls", "Victoria", "Iguazu"], "ans": "B"}, {"q": "The equator passes through how many continents?", "opts": ["2", "3", "4", "5"], "ans": "B"}, {"q": "Lake Baikal is in:", "opts": ["Kazakhstan", "Mongolia", "Russia", "China"], "ans": "C"}, {"q": "Which country has the most time zones?", "opts": ["USA", "Russia", "China", "France"], "ans": "D"}, {"q": "The Dead Sea borders Israel and:", "opts": ["Egypt", "Syria", "Jordan", "Lebanon"], "ans": "C"}, {"q": "What is the chemical symbol for gold?", "opts": ["Go", "Gd", "Au", "Ag"], "ans": "C"}, {"q": "How many bones are in the adult human body?", "opts": ["186", "196", "206", "216"], "ans": "C"}, {"q": "DNA stands for:", "opts": ["Deoxyribonucleic acid", "Dinitrogen acid", "Dextrose natural acid", "Dynamic nuclear acid"], "ans": "A"}, {"q": "Which gas makes up most of Earth's atmosphere?", "opts": ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"], "ans": "C"}, {"q": "Photosynthesis produces which gas?", "opts": ["Carbon dioxide", "Nitrogen", "Oxygen", "Methane"], "ans": "C"}, {"q": "The human heart has how many chambers?", "opts": ["2", "3", "4", "5"], "ans": "C"}, {"q": "Which planet is closest to the Sun?", "opts": ["Venus", "Earth", "Mercury", "Mars"], "ans": "C"}, {"q": "What is the hardest natural substance?", "opts": ["Gold", "Iron", "Quartz", "Diamond"], "ans": "D"}, {"q": "Bees communicate through:", "opts": ["Sound", "Dance", "Smell", "Colour"], "ans": "B"}, {"q": "Which organ produces insulin?", "opts": ["Liver", "Kidneys", "Pancreas", "Spleen"], "ans": "C"}, {"q": "What is the powerhouse of the cell?", "opts": ["Nucleus", "Ribosome", "Mitochondria", "Golgi body"], "ans": "C"}, {"q": "How many chromosomes do humans normally have?", "opts": ["23", "44", "46", "48"], "ans": "C"}, {"q": "Which element has the atomic number 1?", "opts": ["Helium", "Lithium", "Carbon", "Hydrogen"], "ans": "D"}, {"q": "Which planet has the most moons?", "opts": ["Jupiter", "Saturn", "Uranus", "Neptune"], "ans": "B"}, {"q": "What is the most abundant element in the universe?", "opts": ["Helium", "Carbon", "Hydrogen", "Oxygen"], "ans": "C"}, {"q": "Mammals are warm-blooded \u2014 True?", "opts": ["False", "Only some", "True", "Depends on species"], "ans": "C"}, {"q": "Coral reefs are built by tiny animals called:", "opts": ["Plankton", "Polyps", "Krill", "Algae"], "ans": "B"}, {"q": "Which blood type is the universal donor?", "opts": ["A", "B", "AB", "O negative"], "ans": "D"}, {"q": "The speed of sound in air at sea level is approx:", "opts": ["340 m/s", "440 m/s", "240 m/s", "540 m/s"], "ans": "A"}, {"q": "Which planet is known as the Red Planet?", "opts": ["Venus", "Jupiter", "Saturn", "Mars"], "ans": "D"}, {"q": "What is Pi (\u03c0) to two decimal places?", "opts": ["3.14", "3.12", "3.16", "3.18"], "ans": "A"}, {"q": "A triangle has angles summing to:", "opts": ["180\u00b0", "270\u00b0", "360\u00b0", "90\u00b0"], "ans": "A"}, {"q": "What is the square root of 144?", "opts": ["11", "12", "13", "14"], "ans": "B"}, {"q": "Probability of flipping heads on a fair coin:", "opts": ["1/4", "1/3", "1/2", "2/3"], "ans": "C"}, {"q": "What is 15% of 200?", "opts": ["25", "30", "35", "40"], "ans": "B"}, {"q": "If a car travels 60 km/h for 2.5 hours, distance covered is:", "opts": ["120 km", "140 km", "150 km", "160 km"], "ans": "C"}, {"q": "The mean of 4, 8, 12, 16, 20 is:", "opts": ["12", "13", "14", "15"], "ans": "A"}, {"q": "What is 2 to the power of 10?", "opts": ["512", "1024", "2048", "256"], "ans": "B"}, {"q": "In statistics, the middle value of a dataset is the:", "opts": ["Mean", "Mode", "Median", "Range"], "ans": "C"}, {"q": "A rectangle has length 8 and width 5. Its area is:", "opts": ["35", "38", "40", "42"], "ans": "C"}, {"q": "Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8 \u2014 next number?", "opts": ["11", "12", "13", "14"], "ans": "C"}, {"q": "How many degrees in a full circle?", "opts": ["180", "270", "360", "480"], "ans": "C"}, {"q": "What is 12 factorial (12!)?", "opts": ["479,001,600", "479,001,200", "479,001,800", "479,001,400"], "ans": "A"}, {"q": "A standard die has how many faces?", "opts": ["4", "6", "8", "12"], "ans": "B"}, {"q": "What is the hypotenuse of a 3-4-? right triangle?", "opts": ["6", "5", "7", "8"], "ans": "B"}, {"q": "How many planets are in our solar system?", "opts": ["7", "8", "9", "10"], "ans": "B"}, {"q": "Which is the largest planet?", "opts": ["Saturn", "Uranus", "Neptune", "Jupiter"], "ans": "D"}, {"q": "A light-year measures:", "opts": ["Time", "Distance", "Speed", "Mass"], "ans": "B"}, {"q": "The Milky Way is which type of galaxy?", "opts": ["Elliptical", "Irregular", "Spiral", "Lenticular"], "ans": "C"}, {"q": "How long does light from the Sun take to reach Earth?", "opts": ["2 minutes", "8 minutes", "15 minutes", "30 minutes"], "ans": "B"}, {"q": "Which planet has the largest storm (Great Red Spot)?", "opts": ["Saturn", "Neptune", "Uranus", "Jupiter"], "ans": "D"}, {"q": "The International Space Station orbits Earth in roughly:", "opts": ["24 hours", "90 minutes", "6 hours", "12 hours"], "ans": "B"}, {"q": "Who was the first human in space?", "opts": ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "Alan Shepard"], "ans": "C"}, {"q": "How many Earth days does it take Mars to orbit the Sun?", "opts": ["365", "465", "565", "687"], "ans": "D"}, {"q": "The Andromeda Galaxy is moving towards the Milky Way \u2014 True?", "opts": ["False", "Only partly", "True", "Scientists disagree"], "ans": "C"}, {"q": "Black holes were theorised by:", "opts": ["Newton", "Hawking", "Einstein", "Sagan"], "ans": "C"}, {"q": "Which moon of Saturn has a thick atmosphere?", "opts": ["Europa", "Titan", "Ganymede", "Callisto"], "ans": "B"}, {"q": "The Oort Cloud is thought to be the source of:", "opts": ["Asteroids", "Comets", "Meteoroids", "Space dust"], "ans": "B"}, {"q": "The Big Bang occurred approximately how many years ago?", "opts": ["4.6 billion", "10 billion", "13.8 billion", "20 billion"], "ans": "C"}, {"q": "Pluto is classified as a:", "opts": ["Planet", "Asteroid", "Comet", "Dwarf planet"], "ans": "D"}, {"q": "Which planet spins on its side (extreme axial tilt)?", "opts": ["Neptune", "Saturn", "Uranus", "Mars"], "ans": "C"}, {"q": "The Sun is classified as which type of star?", "opts": ["Red giant", "White dwarf", "Yellow dwarf", "Blue giant"], "ans": "C"}, {"q": "The event horizon is associated with:", "opts": ["Neutron stars", "Black holes", "Pulsars", "Quasars"], "ans": "B"}, {"q": "Which planet has a day longer than its year?", "opts": ["Mercury", "Venus", "Mars", "Jupiter"], "ans": "B"}, {"q": "How many moons does Earth have?", "opts": ["0", "1", "2", "3"], "ans": "B"}, {"q": "The Black Death reached Europe in which decade?", "opts": ["1330s", "1340s", "1350s", "1360s"], "ans": "B"}, {"q": "The first successful powered aeroplane flight was by:", "opts": ["Wright Brothers", "Lindbergh", "Earhart", "Bleriot"], "ans": "A"}, {"q": "The Gutenberg Bible was printed circa:", "opts": ["1354", "1454", "1554", "1654"], "ans": "B"}, {"q": "The discovery of penicillin is credited to:", "opts": ["Lister", "Pasteur", "Fleming", "Curie"], "ans": "C"}, {"q": "The first artificial satellite launched into orbit was:", "opts": ["Vostok", "Sputnik", "Explorer", "Apollo"], "ans": "B"}, {"q": "Which year did the internet (World Wide Web) become public?", "opts": ["1985", "1989", "1991", "1993"], "ans": "C"}, {"q": "The Great Wall of China was primarily built during which dynasty?", "opts": ["Han", "Tang", "Ming", "Qing"], "ans": "C"}, {"q": "Charles Darwin published 'On the Origin of Species' in:", "opts": ["1849", "1859", "1869", "1879"], "ans": "B"}, {"q": "The Rosetta Stone was carved in:", "opts": ["332 BC", "196 BC", "44 BC", "100 AD"], "ans": "B"}, {"q": "Mahatma Gandhi led India to independence from:", "opts": ["France", "Portugal", "Britain", "Belgium"], "ans": "C"}, {"q": "The first human genome was fully sequenced in:", "opts": ["1993", "1997", "2001", "2003"], "ans": "D"}, {"q": "The Roman Colosseum was completed around:", "opts": ["50 AD", "80 AD", "120 AD", "200 AD"], "ans": "B"}, {"q": "The Suez Canal opened in:", "opts": ["1849", "1869", "1889", "1909"], "ans": "B"}, {"q": "Albert Einstein received the Nobel Prize in:", "opts": ["1905", "1915", "1921", "1930"], "ans": "C"}, {"q": "The Hubble Space Telescope was launched in:", "opts": ["1988", "1990", "1992", "1994"], "ans": "B"}, {"q": "The UN was founded after World War II in:", "opts": ["1944", "1945", "1946", "1947"], "ans": "B"}, {"q": "Gunpowder was invented in:", "opts": ["Egypt", "Greece", "China", "India"], "ans": "C"}, {"q": "The first antibiotic-resistant bacterium was identified in:", "opts": ["1940s", "1950s", "1960s", "1970s"], "ans": "A"}, {"q": "The Panama Canal opened in:", "opts": ["1904", "1909", "1914", "1919"], "ans": "C"}, {"q": "The first electric car was developed in the:", "opts": ["1820s", "1880s", "1900s", "1920s"], "ans": "B"}, {"q": "The average adult has approximately how many litres of blood?", "opts": ["3\u20134", "5\u20136", "7\u20138", "9\u201310"], "ans": "B"}, {"q": "Which vitamin is produced by the skin in sunlight?", "opts": ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"], "ans": "D"}, {"q": "The strongest muscle in the human body (by weight) is:", "opts": ["Bicep", "Quadricep", "Masseter (jaw)", "Gastrocnemius"], "ans": "C"}, {"q": "How long does it take for food to pass through the digestive system?", "opts": ["6\u20138 hours", "12\u201324 hours", "24\u201372 hours", "5\u20137 days"], "ans": "C"}, {"q": "Which gland is called the 'master gland' of the body?", "opts": ["Thyroid", "Adrenal", "Pineal", "Pituitary"], "ans": "D"}, {"q": "The normal resting heart rate for adults is:", "opts": ["40\u201355 bpm", "60\u2013100 bpm", "100\u2013140 bpm", "140\u2013180 bpm"], "ans": "B"}, {"q": "The brain uses approximately what percentage of the body's energy?", "opts": ["5%", "10%", "20%", "30%"], "ans": "C"}, {"q": "Which part of the eye is responsible for colour vision?", "opts": ["Rods", "Cones", "Lens", "Cornea"], "ans": "B"}, {"q": "The largest organ of the human body is:", "opts": ["Liver", "Brain", "Small intestine", "Skin"], "ans": "D"}, {"q": "Approximately how many neurons are in the human brain?", "opts": ["1 billion", "100 billion", "1 trillion", "10 trillion"], "ans": "B"}, {"q": "The first computer mouse was invented by:", "opts": ["Steve Jobs", "Douglas Engelbart", "Bill Gates", "Tim Berners-Lee"], "ans": "B"}, {"q": "HTTP stands for:", "opts": ["HyperText Transfer Protocol", "High Text Technical Protocol", "HyperText Transmission Protocol", "High Transfer Text Protocol"], "ans": "A"}, {"q": "Who founded Microsoft?", "opts": ["Steve Jobs", "Elon Musk", "Bill Gates and Paul Allen", "Mark Zuckerberg"], "ans": "C"}, {"q": "The first iPhone was released in:", "opts": ["2005", "2006", "2007", "2008"], "ans": "C"}, {"q": "RAM stands for:", "opts": ["Random Access Memory", "Rapid Access Module", "Read And Modify", "Real-time Access Memory"], "ans": "A"}, {"q": "Which programming language is used most for web front-end?", "opts": ["Python", "Java", "C++", "JavaScript"], "ans": "D"}, {"q": "GPS satellites orbit at approximately:", "opts": ["500 km", "2,000 km", "20,200 km", "36,000 km"], "ans": "C"}, {"q": "Moore's Law predicts the number of transistors doubles approximately every:", "opts": ["Year", "2 years", "5 years", "10 years"], "ans": "B"}, {"q": "The 'cloud' in cloud computing refers to:", "opts": ["Actual clouds", "Remote servers", "A software type", "An encryption method"], "ans": "B"}, {"q": "Blockchain technology underpins:", "opts": ["Social media", "Cryptocurrency", "Search engines", "Email systems"], "ans": "B"}, {"q": "GDP stands for:", "opts": ["Gross Domestic Product", "General Domestic Production", "Gross Development Plan", "General Development Product"], "ans": "A"}, {"q": "Inflation means the purchasing power of money:", "opts": ["Increases", "Stays the same", "Decreases", "Doubles"], "ans": "C"}, {"q": "Adam Smith is considered the father of:", "opts": ["Communism", "Modern economics", "Sociology", "Political science"], "ans": "B"}, {"q": "The largest stock exchange by market cap is:", "opts": ["London Stock Exchange", "Tokyo Stock Exchange", "Shanghai Stock Exchange", "New York Stock Exchange"], "ans": "D"}, {"q": "Which country uses the Euro as its currency?", "opts": ["UK", "Norway", "Switzerland", "Germany"], "ans": "D"}, {"q": "The World Bank is headquartered in:", "opts": ["New York", "Geneva", "London", "Washington D.C."], "ans": "D"}, {"q": "Supply and demand determine:", "opts": ["Only wages", "Only interest rates", "Market prices", "Only rent"], "ans": "C"}, {"q": "Monopoly means one company controls:", "opts": ["Most of a market", "An entire market", "Half a market", "None of a market"], "ans": "B"}, {"q": "The IMF stands for:", "opts": ["International Money Fund", "International Monetary Fund", "International Market Foundation", "Internal Monetary Fund"], "ans": "B"}, {"q": "Unemployment rate measures the percentage of:", "opts": ["All adults without work", "Labour force without work", "All citizens without work", "Working-age adults"], "ans": "B"}, {"q": "CO\u2082 in the atmosphere primarily causes:", "opts": ["Ozone depletion", "Acid rain", "Global warming", "Magnetic pole shifts"], "ans": "C"}, {"q": "Deforestation mainly affects:", "opts": ["Ocean levels", "Air quality", "Biodiversity", "Soil salinity"], "ans": "C"}, {"q": "The greenhouse gas with the highest warming potential (over 100 years) is:", "opts": ["CO\u2082", "Methane", "Nitrous oxide", "Water vapour"], "ans": "B"}, {"q": "The ozone layer is located in the:", "opts": ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"], "ans": "B"}, {"q": "Renewable energy sources include:", "opts": ["Coal", "Natural gas", "Nuclear", "Solar and wind"], "ans": "D"}, {"q": "About what percentage of Earth's water is fresh?", "opts": ["3%", "10%", "20%", "50%"], "ans": "A"}, {"q": "Biodegradable materials are broken down by:", "opts": ["Sunlight", "Wind", "Micro-organisms", "Chemicals"], "ans": "C"}, {"q": "The Kyoto Protocol aimed to reduce:", "opts": ["Nuclear weapons", "Greenhouse gas emissions", "Ocean pollution", "Deforestation"], "ans": "B"}, {"q": "Which country emits the most CO\u2082 annually?", "opts": ["USA", "India", "Russia", "China"], "ans": "D"}, {"q": "Coral bleaching is primarily caused by:", "opts": ["Overfishing", "Ocean acidification", "Rising sea temperatures", "Pollution"], "ans": "C"}, {"q": "A burning building \u2014 you can save 3 strangers or 1 close friend. Classic ethical dilemma is called:", "opts": ["The trolley problem", "The prisoner's dilemma", "The bystander problem", "The utilitarian paradox"], "ans": "A"}, {"q": "You find a wallet with $500 cash and an ID. Morally, you should:", "opts": ["Keep the cash, return the wallet", "Return everything", "Keep a finder's fee", "Leave it where you found it"], "ans": "B"}, {"q": "In a survival scenario without food, humans can survive approximately:", "opts": ["3\u20135 days", "1\u20132 weeks", "3 weeks", "5 weeks"], "ans": "C"}, {"q": "The 'prisoner's dilemma' shows that self-interest can lead to:", "opts": ["Optimal outcomes", "Mutual benefit", "Worse outcomes for all", "Cooperation"], "ans": "C"}, {"q": "Occam's Razor suggests the best explanation is usually:", "opts": ["The most complex", "The most creative", "The simplest", "The most popular"], "ans": "C"}, {"q": "'Tragedy of the Commons' describes when shared resources are:", "opts": ["Protected", "Overused", "Unused", "Improved"], "ans": "B"}, {"q": "In a crisis, the first step should generally be:", "opts": ["React immediately", "Assess the situation", "Call for help", "Follow instinct"], "ans": "B"}, {"q": "Sunk cost fallacy means continuing an action because of:", "opts": ["Future gains", "Past investment", "Present circumstances", "Others' pressure"], "ans": "B"}, {"q": "Which is NOT a logical fallacy?", "opts": ["Ad hominem", "Straw man", "Modus ponens", "False dichotomy"], "ans": "C"}, {"q": "'Analysis paralysis' refers to:", "opts": ["Over-thinking preventing decisions", "Quick impulsive decisions", "Group decision-making", "Emotional decision-making"], "ans": "A"}, {"q": "Homo sapiens evolved approximately how many years ago?", "opts": ["50,000", "100,000", "200,000\u2013300,000", "1 million"], "ans": "C"}, {"q": "The first human-like ancestors (hominins) appeared in:", "opts": ["Asia", "Europe", "Africa", "Australia"], "ans": "C"}, {"q": "Which species was our closest extinct relative?", "opts": ["Homo erectus", "Neanderthal", "Homo habilis", "Homo heidelbergensis"], "ans": "B"}, {"q": "Agriculture first appeared approximately how many years ago?", "opts": ["2,000", "5,000", "10,000\u201312,000", "50,000"], "ans": "C"}, {"q": "The 'Out of Africa' theory states:", "opts": ["All humans evolved in Africa", "Only some humans evolved in Africa", "Modern humans migrated out of Africa", "Africa was the last continent populated"], "ans": "C"}, {"q": "The domestication of animals began in:", "opts": ["The Bronze Age", "The Iron Age", "The Neolithic period", "The Paleolithic period"], "ans": "C"}, {"q": "Fire was controlled by humans approximately:", "opts": ["10,000 years ago", "50,000 years ago", "400,000\u2013500,000 years ago", "2 million years ago"], "ans": "C"}, {"q": "Language likely developed in Homo sapiens around:", "opts": ["10,000 years ago", "50,000\u2013100,000 years ago", "200,000 years ago", "1 million years ago"], "ans": "B"}, {"q": "The first cities appeared in:", "opts": ["China", "Egypt", "Mesopotamia", "India"], "ans": "C"}, {"q": "Which technology defines the start of the Bronze Age?", "opts": ["Iron smelting", "Copper-tin alloy tools", "Pottery", "Writing"], "ans": "B"}, {"q": "Shakespeare wrote how many plays?", "opts": ["27", "37", "47", "57"], "ans": "B"}, {"q": "The Mona Lisa was painted by:", "opts": ["Michelangelo", "Raphael", "Leonardo da Vinci", "Botticelli"], "ans": "C"}, {"q": "The Olympics were first held in modern times in:", "opts": ["1892", "1896", "1900", "1904"], "ans": "B"}, {"q": "Which novel begins with 'Call me Ishmael'?", "opts": ["Great Gatsby", "Moby Dick", "Catcher in the Rye", "Crime and Punishment"], "ans": "B"}, {"q": "The 'Periodic Table' of elements was organised by:", "opts": ["Dalton", "Curie", "Mendeleev", "Bohr"], "ans": "C"}, {"q": "Who painted the Sistine Chapel ceiling?", "opts": ["Raphael", "Da Vinci", "Donatello", "Michelangelo"], "ans": "D"}, {"q": "Classical music period lasted roughly from:", "opts": ["1400\u20131600", "1600\u20131750", "1750\u20131820", "1820\u20131900"], "ans": "C"}, {"q": "The Taj Mahal is located in which city?", "opts": ["Delhi", "Mumbai", "Agra", "Jaipur"], "ans": "C"}, {"q": "Haiku is a traditional form of poetry from:", "opts": ["China", "Japan", "Korea", "Vietnam"], "ans": "B"}, {"q": "The Nobel Prize in Literature was first awarded in:", "opts": ["1895", "1901", "1910", "1920"], "ans": "B"}, {"q": "What language has the most native speakers worldwide?", "opts": ["English", "Spanish", "Hindi", "Mandarin Chinese"], "ans": "D"}, {"q": "The Eiffel Tower is located in which city?", "opts": ["London", "Rome", "Paris", "Berlin"], "ans": "C"}, {"q": "Water freezes at which temperature under standard conditions?", "opts": ["0\u00b0C", "10\u00b0C", "-10\u00b0C", "4\u00b0C"], "ans": "A"}, {"q": "Which ocean is the saltiest?", "opts": ["Pacific", "Atlantic", "Indian", "Arctic"], "ans": "B"}, {"q": "The Great Pyramid of Giza was built for Pharaoh:", "opts": ["Tutankhamun", "Cleopatra", "Khufu", "Ramesses II"], "ans": "C"}, {"q": "Who developed the theory of relativity?", "opts": ["Newton", "Galileo", "Einstein", "Hawking"], "ans": "C"}, {"q": "The human eye can distinguish approximately how many colours?", "opts": ["100,000", "1 million", "10 million", "100 million"], "ans": "C"}, {"q": "Which vitamin prevents scurvy?", "opts": ["Vitamin A", "Vitamin B12", "Vitamin C", "Vitamin D"], "ans": "C"}, {"q": "The Colosseum could hold approximately how many spectators?", "opts": ["20,000", "50,000", "100,000", "150,000"], "ans": "B"}, {"q": "Which country invented paper?", "opts": ["Egypt", "Greece", "China", "India"], "ans": "C"}, {"q": "The Amazon rainforest produces approximately what percentage of Earth's oxygen?", "opts": ["10%", "20%", "30%", "40%"], "ans": "B"}, {"q": "The first vaccine was developed by Edward Jenner for:", "opts": ["Cholera", "Smallpox", "Typhoid", "Rabies"], "ans": "B"}, {"q": "How many strings does a standard guitar have?", "opts": ["4", "5", "6", "7"], "ans": "C"}, {"q": "Mount Kilimanjaro is in:", "opts": ["Kenya", "Uganda", "Ethiopia", "Tanzania"], "ans": "D"}, {"q": "The human body is approximately what percentage water?", "opts": ["40%", "50%", "60%", "70%"], "ans": "C"}, {"q": "Which animal has the longest lifespan?", "opts": ["Elephant", "Tortoise", "Whale", "Bowhead whale"], "ans": "D"}, {"q": "The word 'robot' comes from the Czech word meaning:", "opts": ["Machine", "Worker", "Helper", "Tool"], "ans": "B"}, {"q": "How many time zones does China officially use?", "opts": ["1", "3", "5", "7"], "ans": "A"}, {"q": "The deepest point of the ocean is:", "opts": ["Puerto Rico Trench", "Java Trench", "Mariana Trench", "Tonga Trench"], "ans": "C"}, {"q": "Alexander the Great was from:", "opts": ["Rome", "Persia", "Macedonia", "Carthage"], "ans": "C"}, {"q": "Atoms are made of protons, neutrons, and:", "opts": ["Quarks", "Photons", "Electrons", "Neutrinos"], "ans": "C"}, {"q": "The largest desert by area is:", "opts": ["Gobi", "Sahara", "Arabian", "Antarctic"], "ans": "D"}, {"q": "The speed of a computer processor is measured in:", "opts": ["Bytes", "Megapixels", "Hertz (GHz)", "Watts"], "ans": "C"}, {"q": "Which blood cells fight infection?", "opts": ["Red blood cells", "Platelets", "White blood cells", "Plasma cells"], "ans": "C"}, {"q": "The human appendix is located in the:", "opts": ["Stomach", "Large intestine", "Small intestine", "Lower right abdomen"], "ans": "D"}, {"q": "Stonehenge is located in which country?", "opts": ["France", "Ireland", "Scotland", "England"], "ans": "D"}, {"q": "Which gas is produced when vinegar and baking soda react?", "opts": ["Oxygen", "Hydrogen", "Carbon dioxide", "Nitrogen"], "ans": "C"}, {"q": "The longest bone in the human body is the:", "opts": ["Humerus", "Tibia", "Femur", "Fibula"], "ans": "C"}, {"q": "Photons travel at the speed of light \u2014 always \u2014 True?", "opts": ["False", "Only in vacuum", "True", "Only in space"], "ans": "C"}, {"q": "Which chess piece can only move diagonally?", "opts": ["Rook", "Knight", "Bishop", "Queen"], "ans": "C"}, {"q": "The Great Fire of London occurred in:", "opts": ["1566", "1666", "1766", "1866"], "ans": "B"}, {"q": "Which country has the longest coastline?", "opts": ["Russia", "Australia", "Norway", "Canada"], "ans": "D"}, {"q": "The pH of pure water is:", "opts": ["5", "7", "9", "11"], "ans": "B"}, {"q": "Who invented the telephone?", "opts": ["Edison", "Tesla", "Bell", "Morse"], "ans": "C"}, {"q": "The Roman numeral for 1000 is:", "opts": ["D", "C", "L", "M"], "ans": "D"}, {"q": "Mount Olympus is in:", "opts": ["Italy", "Turkey", "Greece", "Albania"], "ans": "C"}, {"q": "The Sahara Desert is primarily covered by:", "opts": ["Sand dunes", "Rock and gravel", "Dry lake beds", "Oases"], "ans": "B"}, {"q": "Electricity flows from:", "opts": ["High to low potential", "Low to high potential", "Randomly", "In circles only"], "ans": "A"}, {"q": "The French motto is: Liberty, Equality, and:", "opts": ["Justice", "Brotherhood", "Peace", "Progress"], "ans": "B"}, {"q": "DNA replication occurs during which phase?", "opts": ["Prophase", "Metaphase", "S phase", "G1 phase"], "ans": "C"}, {"q": "The chemical formula for table salt is:", "opts": ["NaCl", "KCl", "MgCl\u2082", "CaCl\u2082"], "ans": "A"}, {"q": "In which ocean is the Bermuda Triangle?", "opts": ["Pacific", "Indian", "Southern", "Atlantic"], "ans": "D"}, {"q": "The first Nobel Peace Prize was awarded in:", "opts": ["1895", "1901", "1910", "1920"], "ans": "B"}, {"q": "Which country has won the most FIFA World Cups?", "opts": ["Germany", "Argentina", "Italy", "Brazil"], "ans": "D"}, {"q": "The speed of Earth's rotation at the equator is approximately:", "opts": ["465 m/s", "165 m/s", "265 m/s", "565 m/s"], "ans": "A"}, {"q": "Which ancient city was known as the 'Eternal City'?", "opts": ["Athens", "Cairo", "Rome", "Jerusalem"], "ans": "C"}, {"q": "The smallest planet in our solar system is:", "opts": ["Pluto", "Mars", "Venus", "Mercury"], "ans": "D"}, {"q": "Bacteria reproduce primarily by:", "opts": ["Mitosis", "Meiosis", "Binary fission", "Budding"], "ans": "C"}, {"q": "The International Date Line is approximately at:", "opts": ["0\u00b0 longitude", "90\u00b0 East", "180\u00b0 longitude", "90\u00b0 West"], "ans": "C"}, {"q": "Coral reefs cover about what percentage of the ocean floor?", "opts": ["Less than 1%", "5%", "10%", "20%"], "ans": "A"}, {"q": "A group of lions is called a:", "opts": ["Pack", "Herd", "Flock", "Pride"], "ans": "D"}, {"q": "Diamonds are made of which element?", "opts": ["Silicon", "Carbon", "Nitrogen", "Oxygen"], "ans": "B"}, {"q": "The moon's gravitational pull primarily causes:", "opts": ["Earthquakes", "Volcanic eruptions", "Ocean tides", "Wind patterns"], "ans": "C"}, {"q": "Which language has the most words?", "opts": ["Chinese", "Spanish", "French", "English"], "ans": "D"}, {"q": "The human body has how many pairs of ribs?", "opts": ["10", "11", "12", "13"], "ans": "C"}, {"q": "Isaac Newton discovered gravity when:", "opts": ["Watching the sea", "An apple fell near him", "Studying the Moon", "Doing an experiment"], "ans": "B"}, {"q": "The Berlin Conference of 1884\u201385 divided:", "opts": ["Asia", "The Americas", "Africa", "The Pacific"], "ans": "C"}, {"q": "Which metal is liquid at room temperature?", "opts": ["Lead", "Aluminium", "Mercury", "Tin"], "ans": "C"}, {"q": "The Internet was invented primarily for:", "opts": ["Entertainment", "Military communication", "Commerce", "Education"], "ans": "B"}, {"q": "Rainbows appear when sunlight hits:", "opts": ["Dust particles", "Water droplets", "Ice crystals", "Glass"], "ans": "B"}, {"q": "The lifespan of a red blood cell is approximately:", "opts": ["10 days", "30 days", "90 days", "120 days"], "ans": "D"}, {"q": "The closest galaxy to the Milky Way is:", "opts": ["Triangulum", "Andromeda", "Whirlpool", "Sombrero"], "ans": "B"}, {"q": "In which year did the Soviet Union dissolve?", "opts": ["1989", "1990", "1991", "1992"], "ans": "C"}, {"q": "Which is the most widely practised religion?", "opts": ["Islam", "Hinduism", "Buddhism", "Christianity"], "ans": "D"}, {"q": "The chemical symbol for water is:", "opts": ["HO", "H\u2082O", "H\u2083O", "OH"], "ans": "B"}, {"q": "The first antibiotic discovered was:", "opts": ["Streptomycin", "Tetracycline", "Amoxicillin", "Penicillin"], "ans": "D"}, {"q": "Average surface temperature of the Sun is approximately:", "opts": ["3,000\u00b0C", "5,500\u00b0C", "10,000\u00b0C", "15,000\u00b0C"], "ans": "B"}, {"q": "The Great Wall of China stretches approximately:", "opts": ["5,000 km", "13,000 km", "21,000 km", "30,000 km"], "ans": "C"}, {"q": "A prime number is divisible only by:", "opts": ["Itself", "1 and itself", "2 and itself", "Even numbers"], "ans": "B"}, {"q": "The capital of Canada is:", "opts": ["Toronto", "Montreal", "Vancouver", "Ottawa"], "ans": "D"}, {"q": "The Battle of Waterloo was fought in:", "opts": ["1812", "1813", "1814", "1815"], "ans": "D"}, {"q": "Human cells contain DNA in which organelle?", "opts": ["Mitochondria", "Ribosomes", "Nucleus", "Golgi body"], "ans": "C"}, {"q": "Which country invented the game of chess?", "opts": ["Persia", "Arabia", "India", "China"], "ans": "C"}, {"q": "A decade is how many years?", "opts": ["5", "10", "20", "100"], "ans": "B"}, {"q": "The hardest part of the human body is:", "opts": ["Bone", "Cartilage", "Tooth enamel", "Nail"], "ans": "C"}, {"q": "Gravity on the Moon is approximately what fraction of Earth's?", "opts": ["1/10", "1/6", "1/4", "1/3"], "ans": "B"}, {"q": "The study of earthquakes is called:", "opts": ["Vulcanology", "Meteorology", "Seismology", "Geology"], "ans": "C"}, {"q": "WHO stands for:", "opts": ["World Health Organization", "World Humanitarian Order", "World Help Organization", "World Health Office"], "ans": "A"}, {"q": "Human digestion begins in the:", "opts": ["Stomach", "Small intestine", "Oesophagus", "Mouth"], "ans": "D"}, {"q": "Which ocean is the largest by area?", "opts": ["Atlantic", "Pacific", "Indian", "Arctic"], "ans": "B"}, {"q": "The symbol for Pi is named after which Greek letter?", "opts": ["Alpha", "Omega", "Pi", "Sigma"], "ans": "C"}, {"q": "Which country is both a continent and a country?", "opts": ["Greenland", "Antarctica", "Iceland", "Australia"], "ans": "D"}, {"q": "The Panama Canal connects:", "opts": ["Atlantic and Indian", "Pacific and Arctic", "Atlantic and Pacific", "Indian and Pacific"], "ans": "C"}, {"q": "The chemical symbol for iron is:", "opts": ["Ir", "In", "Fe", "Fr"], "ans": "C"}, {"q": "In which organ does gas exchange occur in humans?", "opts": ["Heart", "Kidney", "Liver", "Lungs"], "ans": "D"}, {"q": "The human eye is most sensitive to which colour of light?", "opts": ["Blue", "Red", "Green", "Yellow"], "ans": "C"}, {"q": "The year 2000 was a leap year \u2014 True?", "opts": ["False", "Only in some countries", "True", "It was an exception"], "ans": "C"}, {"q": "Which force is responsible for nuclear fusion in stars?", "opts": ["Gravity", "Electromagnetic", "Strong nuclear", "Weak nuclear"], "ans": "C"}, {"q": "The study of fungi is called:", "opts": ["Botany", "Zoology", "Mycology", "Entomology"], "ans": "C"}, {"q": "Area 51 is located in which US state?", "opts": ["Utah", "New Mexico", "Colorado", "Nevada"], "ans": "D"}, {"q": "Stalactites hang from:", "opts": ["Cave walls", "Cave floors", "Cave ceilings", "Rock faces"], "ans": "C"}, {"q": "The average distance from Earth to the Moon is approximately:", "opts": ["120,000 km", "384,400 km", "500,000 km", "1,000,000 km"], "ans": "B"}, {"q": "A googol is 10 to the power of:", "opts": ["10", "50", "100", "1000"], "ans": "C"}, {"q": "Which ancient library was the largest in the ancient world?", "opts": ["Athens", "Rome", "Babylon", "Alexandria"], "ans": "D"}, {"q": "The speed at which a falling object accelerates on Earth is approx:", "opts": ["5 m/s\u00b2", "9.8 m/s\u00b2", "12 m/s\u00b2", "15 m/s\u00b2"], "ans": "B"}, {"q": "The 'Dark Ages' refers to early:", "opts": ["Ancient history", "Middle Ages", "Modern history", "Renaissance"], "ans": "B"}, {"q": "An astronaut's weight in space (far from any body) is:", "opts": ["The same as on Earth", "Half of on Earth", "Double", "Zero"], "ans": "D"}, {"q": "Which continent has no permanent human population?", "opts": ["Arctic", "Antarctica", "Greenland", "Iceland"], "ans": "B"}, {"q": "In which decade was television invented?", "opts": ["1890s", "1910s", "1920s", "1940s"], "ans": "C"}, {"q": "The chemical process of burning is called:", "opts": ["Reduction", "Oxidation", "Hydrolysis", "Fermentation"], "ans": "B"}, {"q": "The famous equation for kinetic energy is:", "opts": ["\u00bdmv\u00b2", "mv\u00b2", "m\u00b2v", "2mv"], "ans": "A"}, {"q": "Vestigial structures in humans include:", "opts": ["Thumbs", "Wisdom teeth", "Femur", "Clavicle"], "ans": "B"}];
+const ALL_CODES     = ["ANTARA-0M2AAV-724", "ANTARA-ZV14XX-712", "ANTARA-J5G4CX-555", "ANTARA-3X71SO-911", "ANTARA-PYMRSB-208", "ANTARA-VHUOML-816", "ANTARA-Z98OFU-051", "ANTARA-4GEWGK-754", "ANTARA-UJ6UTH-181", "ANTARA-XATW0U-445", "ANTARA-DD71VH-389", "ANTARA-7P03MZ-346", "ANTARA-IEFEIB-602", "ANTARA-7USVGL-063", "ANTARA-WMBQ97-801", "ANTARA-AJZGFX-262", "ANTARA-2W0YX2-241", "ANTARA-IL80RF-325", "ANTARA-QJWC54-979", "ANTARA-52DLHR-675", "ANTARA-JHXRWO-966", "ANTARA-QVZ8QQ-156", "ANTARA-L4LEB6-652", "ANTARA-H28PQJ-345", "ANTARA-TPOFXN-541", "ANTARA-X4BZPO-493", "ANTARA-J3J267-990", "ANTARA-W757SW-974", "ANTARA-URXHKC-752", "ANTARA-5MVEXB-732", "ANTARA-715AQH-511", "ANTARA-DKVAKD-596", "ANTARA-8PMQBB-898", "ANTARA-797H4Q-116", "ANTARA-JUBVP6-323", "ANTARA-LG74SR-230", "ANTARA-P9C1HJ-237", "ANTARA-EFUPQD-971", "ANTARA-N4PQ3F-780", "ANTARA-O2W6RV-745", "ANTARA-KJL5GU-423", "ANTARA-HJHDIO-799", "ANTARA-OPYM2G-209", "ANTARA-0NCD9S-444", "ANTARA-TL65V2-112", "ANTARA-4CXV27-334", "ANTARA-UK8FZP-763", "ANTARA-0CP1Z6-001", "ANTARA-M52VHP-655", "ANTARA-0EEHZS-135", "ANTARA-7W95UL-770", "ANTARA-XWVQ6I-801", "ANTARA-6IIAGI-008", "ANTARA-PBXC0L-305", "ANTARA-2YL6A1-317", "ANTARA-VBORSQ-238", "ANTARA-6AWVYL-146", "ANTARA-UCXRJT-267", "ANTARA-K75KM6-942", "ANTARA-WG2G04-559", "ANTARA-KAHHMQ-174", "ANTARA-NBKGYX-590", "ANTARA-3OXZX2-884", "ANTARA-GX2BLZ-275", "ANTARA-1CNNOB-034", "ANTARA-FDEIKG-539", "ANTARA-FRTOPW-531", "ANTARA-GZMGA7-162", "ANTARA-YRM2X7-758", "ANTARA-AUH37W-169", "ANTARA-ZY5G7R-376", "ANTARA-TBHB6W-358", "ANTARA-KT3CQ9-147", "ANTARA-DMBE8P-593", "ANTARA-BFQ8DT-133", "ANTARA-GS7ZWB-032", "ANTARA-WJDV79-882", "ANTARA-LSDBYW-743", "ANTARA-82Q4PL-522", "ANTARA-KUTRTY-000", "ANTARA-YAB5IK-687", "ANTARA-3S0AF4-810", "ANTARA-LQL1M9-408", "ANTARA-3USVD8-105", "ANTARA-GEKLVL-363", "ANTARA-0ADES2-372", "ANTARA-8UK1B4-501", "ANTARA-XDVHIF-619", "ANTARA-JL4BH6-599", "ANTARA-OUMH48-758", "ANTARA-SJ8I5Q-202", "ANTARA-YDH5UZ-225", "ANTARA-3K6DW4-225", "ANTARA-KFE0KZ-685", "ANTARA-LK4W3E-564", "ANTARA-3LMEHP-261", "ANTARA-9JZ2CN-118", "ANTARA-LQBR5A-837", "ANTARA-YRRPJ4-166", "ANTARA-AVYYGN-714", "ANTARA-UR91UE-884", "ANTARA-R8E0VH-911", "ANTARA-5RSBCW-590", "ANTARA-QYJP4F-853", "ANTARA-VV7GH2-888", "ANTARA-B97FDK-868", "ANTARA-FLBQJK-057", "ANTARA-TBGJQI-909", "ANTARA-BM0E4I-100", "ANTARA-9OM25W-958", "ANTARA-ZO4C6J-864", "ANTARA-QSOVVI-920", "ANTARA-SBO1WC-722", "ANTARA-Q2WBOC-428", "ANTARA-5CQ96Q-188", "ANTARA-4HUMLS-211", "ANTARA-7PYYYG-090", "ANTARA-CK0DPH-601", "ANTARA-UYS7TZ-213", "ANTARA-E3C0GB-394", "ANTARA-WVBSZN-494", "ANTARA-C9TE87-867", "ANTARA-QWMLX1-502", "ANTARA-38ZW8X-059", "ANTARA-N1214G-526", "ANTARA-0HINH1-978", "ANTARA-GNBZRP-121", "ANTARA-2D183Z-042", "ANTARA-FVMNPD-959", "ANTARA-EUD85N-496", "ANTARA-2J31DX-894", "ANTARA-RDW42O-690", "ANTARA-FJGE0J-318", "ANTARA-53KJDQ-523", "ANTARA-J8VZHB-140", "ANTARA-28NM1U-425", "ANTARA-M9GR0T-114", "ANTARA-1V68SK-881", "ANTARA-HYVYDP-119", "ANTARA-5R5TGS-037", "ANTARA-LOH6BU-913", "ANTARA-ZQYMM8-842", "ANTARA-3AMFWO-186", "ANTARA-5AY7GK-610", "ANTARA-7PPKNR-905", "ANTARA-RSXTJL-628", "ANTARA-OUZ3Q8-629", "ANTARA-T1W21V-802", "ANTARA-ORX7FL-093", "ANTARA-DFXLQX-440", "ANTARA-X6OSHN-167", "ANTARA-BQ5U79-229", "ANTARA-JVWNYZ-946", "ANTARA-BYHS5B-442", "ANTARA-0UOT1N-618", "ANTARA-MYCWAW-584", "ANTARA-MWCF6T-680", "ANTARA-LY52ZG-105", "ANTARA-ABO1HO-042", "ANTARA-WNSF2M-111", "ANTARA-GXRDUC-016", "ANTARA-BC3JRL-553", "ANTARA-D7KI34-621", "ANTARA-1QQZVO-842", "ANTARA-PMJV9J-802", "ANTARA-VL2BQ2-392", "ANTARA-Y4D155-195", "ANTARA-BFT08F-092", "ANTARA-35JPON-904", "ANTARA-JT4OZM-449", "ANTARA-R1CTY3-676", "ANTARA-HHK8AP-326", "ANTARA-QZO8GZ-850", "ANTARA-KQB6FF-489", "ANTARA-QY3FGO-349", "ANTARA-JC4SJJ-370", "ANTARA-MR1R2Q-288", "ANTARA-OYOOC9-074", "ANTARA-YODRFD-431", "ANTARA-6HE02J-022", "ANTARA-R5KFNR-546", "ANTARA-GO03CG-239", "ANTARA-C3MPIZ-974", "ANTARA-BIV0YJ-875", "ANTARA-524M3E-232", "ANTARA-YNTOGF-849", "ANTARA-K5EIOO-409", "ANTARA-B1F4S9-122", "ANTARA-8IQZQY-622", "ANTARA-OK28Y6-814", "ANTARA-4RF616-888", "ANTARA-XBJN4Z-064", "ANTARA-22WLCV-618", "ANTARA-V4CO88-252", "ANTARA-0SQ1PI-979", "ANTARA-3YCQ0Q-381", "ANTARA-1BLF45-093", "ANTARA-9P3RHR-594", "ANTARA-4F6XCM-802", "ANTARA-631PQY-100"];
+
+// ═══════════════════════════════════════════════════════
+//  STORAGE HELPERS  (localStorage, keys per-session)
+// ═══════════════════════════════════════════════════════
+const STORE_BANNED    = 'foa_quiz_banned';
+const STORE_USED_CODE = 'foa_quiz_used_codes';
+const STORE_WARN      = 'foa_quiz_warned';
+
+function isBanned(){    return localStorage.getItem(STORE_BANNED) === '1'; }
+function setBanned(){   localStorage.setItem(STORE_BANNED, '1'); }
+function hasWarned(){   return localStorage.getItem(STORE_WARN) === '1'; }
+function setWarned(){   localStorage.setItem(STORE_WARN, '1'); }
+function getUsedCodes(){ try{ return JSON.parse(localStorage.getItem(STORE_USED_CODE)||'[]'); }catch(e){return[];} }
+function markCodeUsed(c){ const u=getUsedCodes(); u.push(c); localStorage.setItem(STORE_USED_CODE, JSON.stringify(u)); }
+
+// ═══════════════════════════════════════════════════════
+//  QUIZ STATE
+// ═══════════════════════════════════════════════════════
+let selectedQs   = [];
+let currentIdx   = 0;
+let score        = 0;
+let timerHandle  = null;
+let timeLeft     = 30;
+let answered     = false;
+let quizActive   = false;
+let warnedOnce   = false;
+
+// ═══════════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════════
+function shuffle(arr){
+	for(let i=arr.length-1;i>0;i--){
+		const j=Math.floor(Math.random()*(i+1));
+		[arr[i],arr[j]]=[arr[j],arr[i]];
+	}
+	return arr;
+}
+
+function getAvailableCode(){
+	const used = getUsedCodes();
+	const avail = ALL_CODES.filter(c=>!used.includes(c));
+	if(!avail.length) return null;
+	return avail[Math.floor(Math.random()*avail.length)];
+}
+
+function show(id){ document.getElementById(id).style.display='block'; }
+function hide(id){ document.getElementById(id).style.display='none'; }
+
+// ═══════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', function(){
+	if(isBanned()){
+		hide('start-screen');
+		show('banned-screen');
+		return;
+	}
+	show('start-screen');
+	hide('quiz-screen');
+	hide('win-screen');
+	hide('lose-screen');
+	hide('banned-screen');
+});
+
+// ═══════════════════════════════════════════════════════
+//  START QUIZ
+// ═══════════════════════════════════════════════════════
+function startQuiz(){
+	if(isBanned()){ show('banned-screen'); hide('start-screen'); return; }
+	selectedQs = shuffle([...ALL_QUESTIONS]).slice(0,15);
+	currentIdx = 0;
+	score = 0;
+	warnedOnce = false;
+	quizActive = true;
+	hide('start-screen');
+	show('quiz-screen');
+	renderQuestion();
+	attachVisibilityGuard();
+}
+
+// ═══════════════════════════════════════════════════════
+//  RENDER QUESTION
+// ═══════════════════════════════════════════════════════
+function renderQuestion(){
+	const q = selectedQs[currentIdx];
+	answered = false;
+	clearInterval(timerHandle);
+
+	// progress
+	const pct = (currentIdx/15)*100;
+	document.getElementById('prog-bar').style.width = pct+'%';
+
+	// meta
+	document.getElementById('q-num').textContent = 'Question '+(currentIdx+1)+' / 15';
+	document.getElementById('score-live').textContent = 'Score: '+score+' / '+currentIdx;
+	document.getElementById('a-feedback').className='answer-feedback';
+	document.getElementById('a-feedback').textContent='';
+
+	// question text
+	document.getElementById('q-text').textContent = q.q;
+
+	// options
+	const grid = document.getElementById('opts-grid');
+	grid.innerHTML='';
+	const labels=['A','B','C','D'];
+	q.opts.forEach(function(opt,i){
+		const btn=document.createElement('button');
+		btn.className='opt-btn';
+		btn.innerHTML='<span class="opt-letter">'+labels[i]+'</span>'+opt;
+		btn.onclick=function(){ pickAnswer(labels[i], btn); };
+		grid.appendChild(btn);
+	});
+
+	// timer
+	timeLeft=30;
+	updateTimerUI();
+	timerHandle=setInterval(function(){
+		timeLeft--;
+		updateTimerUI();
+		if(timeLeft<=0){
+			clearInterval(timerHandle);
+			timeExpired();
+		}
+	},1000);
+}
+
+function updateTimerUI(){
+	const el=document.getElementById('timer-val');
+	const tw=document.getElementById('q-timer');
+	el.textContent=timeLeft;
+	if(timeLeft<=10) tw.classList.add('warning');
+	else tw.classList.remove('warning');
+}
+
+// ═══════════════════════════════════════════════════════
+//  ANSWER PICKING
+// ═══════════════════════════════════════════════════════
+function pickAnswer(letter, btn){
+	if(answered) return;
+	answered=true;
+	clearInterval(timerHandle);
+	const q=selectedQs[currentIdx];
+	const allBtns=document.querySelectorAll('.opt-btn');
+	allBtns.forEach(function(b){ b.disabled=true; });
+
+	if(letter===q.ans){
+		btn.classList.add('correct');
+		score++;
+		showFeedback('correct', '&#9989; Correct! Well done.');
+		setTimeout(nextQuestion,1100);
+	} else {
+		btn.classList.add('wrong');
+		// highlight correct
+		const labels=['A','B','C','D'];
+		allBtns.forEach(function(b,i){ if(labels[i]===q.ans) b.classList.add('correct'); });
+		showFeedback('wrong', '&#10060; Wrong! The correct answer was: '+q.opts[labels.indexOf(q.ans)]);
+		setTimeout(function(){ endQuiz(false); }, 1800);
+	}
+}
+
+function timeExpired(){
+	if(answered) return;
+	answered=true;
+	const allBtns=document.querySelectorAll('.opt-btn');
+	allBtns.forEach(function(b){ b.disabled=true; });
+	const q=selectedQs[currentIdx];
+	const labels=['A','B','C','D'];
+	allBtns.forEach(function(b,i){ if(labels[i]===q.ans) b.classList.add('correct'); });
+	showFeedback('wrong', '&#9201; Time&#39;s up! The correct answer was: '+q.opts[labels.indexOf(q.ans)]);
+	setTimeout(function(){ endQuiz(false); }, 1800);
+}
+
+function showFeedback(type, msg){
+	const el=document.getElementById('a-feedback');
+	el.className='answer-feedback show '+(type==='correct'?'ok':'bad');
+	el.innerHTML=msg;
+}
+
+function nextQuestion(){
+	currentIdx++;
+	if(currentIdx>=15){
+		endQuiz(true);
+	} else {
+		renderQuestion();
+	}
+}
+
+// ═══════════════════════════════════════════════════════
+//  END QUIZ
+// ═══════════════════════════════════════════════════════
+function endQuiz(won){
+	quizActive=false;
+	clearInterval(timerHandle);
+	hide('quiz-screen');
+	detachVisibilityGuard();
+	setBanned(); // one attempt used
+
+	if(won){
+		const code=getAvailableCode();
+		if(code){
+			markCodeUsed(code);
+			document.getElementById('win-code').textContent=code;
+		} else {
+			document.getElementById('win-code').textContent='ALL-KEYS-USED';
+			document.getElementById('win-code').style.color='#ff8888';
+			const msg=document.createElement('p');
+			msg.className='no-codes-msg';
+			msg.innerHTML='All keys have been redeemed. Please contact CGI BUZZ Studio on <a href="community.html">Discord</a> — we will send you a key directly!';
+			document.querySelector('.win-box').appendChild(msg);
+		}
+		show('win-screen');
+	} else {
+		document.getElementById('lose-score-txt').textContent='You scored '+score+' / 15';
+		show('lose-screen');
+	}
+}
+
+function copyCode(){
+	const code=document.getElementById('win-code').textContent;
+	navigator.clipboard.writeText(code).then(function(){
+		const btn=document.querySelector('.copy-btn');
+		btn.innerHTML='<i class="fa fa-check"></i> Copied!';
+		setTimeout(function(){ btn.innerHTML='<i class="fa fa-copy"></i> Copy Code'; },2000);
+	});
+}
+
+// ═══════════════════════════════════════════════════════
+//  VISIBILITY / TAB GUARD
+// ═══════════════════════════════════════════════════════
+function handleVisibility(){
+	if(!quizActive) return;
+	if(document.hidden){
+		if(!warnedOnce){
+			warnedOnce=true;
+			setWarned();
+			clearInterval(timerHandle);
+			document.getElementById('warn-modal').classList.add('show');
+		} else {
+			// second violation
+			forceEnd();
+		}
+	}
+}
+
+function handleBeforeUnload(e){
+	if(!quizActive) return;
+	if(!warnedOnce){
+		warnedOnce=true;
+		setWarned();
+		e.preventDefault();
+		e.returnValue='';
+		clearInterval(timerHandle);
+		document.getElementById('warn-modal').classList.add('show');
+	} else {
+		forceEnd();
+	}
+}
+
+function attachVisibilityGuard(){
+	document.addEventListener('visibilitychange', handleVisibility);
+	window.addEventListener('beforeunload', handleBeforeUnload);
+}
+function detachVisibilityGuard(){
+	document.removeEventListener('visibilitychange', handleVisibility);
+	window.removeEventListener('beforeunload', handleBeforeUnload);
+}
+
+function dismissWarning(){
+	document.getElementById('warn-modal').classList.remove('show');
+	// resume timer from where it was
+	if(quizActive && !answered){
+		timerHandle=setInterval(function(){
+			timeLeft--;
+			updateTimerUI();
+			if(timeLeft<=0){ clearInterval(timerHandle); timeExpired(); }
+		},1000);
+	}
+}
+
+function forceEnd(){
+	document.getElementById('warn-modal').classList.remove('show');
+	quizActive=false;
+	clearInterval(timerHandle);
+	detachVisibilityGuard();
+	setBanned();
+	hide('quiz-screen');
+	hide('start-screen');
+	show('banned-screen');
+}
+</script>
+</body>
+</html>
