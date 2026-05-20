@@ -301,6 +301,29 @@ body{
 	  gtag('js', new Date());
 	  gtag('config', 'G-9FD3X9YV4P');
 	</script>
+<style>
+.header-section .container{
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	flex-wrap:nowrap;
+	gap:16px;
+}
+.site-logo{
+	flex-shrink:0;
+	margin-right:auto;
+}
+.user-panel{
+	flex-shrink:0;
+	margin-left:auto;
+}
+.main-menu{
+	flex-shrink:1;
+}
+@media(max-width:991px){
+	.user-panel iframe{ display:none; }
+}
+</style>
 </head>
 
 <body>
@@ -339,15 +362,15 @@ body{
 			<img src="img/logo.png" alt="Fate of Antara game logo">
 		</a>
 
-		<div class="user-panel">
-			<a href="https://store.steampowered.com/app/4015060/Fate_of_Antara/" target="_blank">
-				Steam
-			</a>
-			/
-			<a href="https://discord.gg/TdDky44mdE" target="_blank">
-				Discord
-			</a>
-		</div>
+		<div class="user-panel" style="display:flex;align-items:center;gap:10px;">
+				<iframe src="https://store.steampowered.com/widget/4015060/"
+					frameborder="0"
+					width="200"
+					height="80"
+					scrolling="no"
+					style="border-radius:8px;overflow:hidden;flex-shrink:0;">
+				</iframe>
+			</div>
 
 		<div class="nav-switch">
 			<i class="fa fa-bars"></i>
