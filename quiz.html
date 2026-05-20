@@ -443,13 +443,29 @@ body{
 	</div>
 </div>
 
-<!-- ── BANNED SCREEN ── -->
-<div id="banned-screen">
+<!-- ── LOADING SCREEN ── -->
+<div id="loading-screen" style="display:none;">
+	<div class="banned-box" style="border-color:rgba(255,180,0,.2);">
+		<span class="ban-icon">&#9203;</span>
+		<h2 style="color:#ffd700;">Checking your status...</h2>
+		<p>Please wait a moment while we verify your eligibility.</p>
+	</div>
+</div>
+
+<!-- ── BANNED / COOLDOWN SCREEN ── -->
+<div id="banned-screen" style="display:none;">
 	<div class="banned-box">
-		<span class="ban-icon">&#128683;</span>
-		<h2>Access Denied</h2>
-		<p>You have already used your one attempt for this quiz challenge. Each player is allowed only a single try to keep competition fair. Thank you for playing!</p>
-		<div style="margin-top:28px;">
+		<span class="ban-icon">&#9200;</span>
+		<h2 id="cooldown-title">Come back later!</h2>
+		<p id="cooldown-msg">You already attempted the quiz. You must wait <strong>30 hours</strong> before trying again. Your next attempt unlocks in:</p>
+		<div style="margin:28px auto;display:inline-flex;align-items:center;gap:6px;padding:20px 36px;border-radius:18px;background:rgba(255,180,0,.08);border:1px solid rgba(255,180,0,.2);">
+			<span style="font-size:42px;font-weight:800;color:#ffd700;font-family:monospace;" id="cooldown-hours">30</span>
+			<span style="font-size:22px;color:#888;margin:0 4px;">h</span>
+			<span style="font-size:42px;font-weight:800;color:#ffd700;font-family:monospace;" id="cooldown-mins">00</span>
+			<span style="font-size:22px;color:#888;">m</span>
+		</div>
+		<p style="color:#666;font-size:13px;margin-bottom:28px;">Cooldown is tracked by your IP address &mdash; it cannot be bypassed by clearing cookies or using incognito mode.</p>
+		<div>
 			<a href="https://store.steampowered.com/app/4015060/Fate_of_Antara/" target="_blank" class="steam-cta"><i class="fa fa-steam"></i> Get Fate of Antara on Steam</a>
 		</div>
 	</div>
@@ -458,6 +474,23 @@ body{
 </div><!-- /quiz-wrap -->
 
 <!-- ── FOOTER ── -->
+
+<!-- STEAM BUY WIDGET – regional pricing auto-detected by Steam -->
+<section style="padding:40px 0 50px;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(20,0,0,0.85) 100%);">
+  <div class="container">
+    <div style="max-width:680px;margin:0 auto;text-align:center;">
+      <h3 style="color:#fff;font-size:22px;font-weight:700;margin-bottom:6px;">Get Fate of Antara on Steam</h3>
+      <p style="color:#aaa;font-size:14px;margin-bottom:22px;">Price shown in your local currency &mdash; buy directly on Steam.</p>
+      <iframe src="https://store.steampowered.com/widget/4015060/"
+              frameborder="0"
+              width="100%"
+              height="190"
+              style="max-width:646px;display:block;margin:0 auto;border-radius:12px;overflow:hidden;">
+      </iframe>
+    </div>
+  </div>
+</section>
+
 <footer class="footer-section">
 	<div class="container">
 		<ul class="footer-menu">
@@ -502,14 +535,84 @@ const ALL_QUESTIONS = [{"q": "What is the psychological term for blaming others 
 const ALL_CODES     = ["ANTARA-0M2AAV-724", "ANTARA-ZV14XX-712", "ANTARA-J5G4CX-555", "ANTARA-3X71SO-911", "ANTARA-PYMRSB-208", "ANTARA-VHUOML-816", "ANTARA-Z98OFU-051", "ANTARA-4GEWGK-754", "ANTARA-UJ6UTH-181", "ANTARA-XATW0U-445", "ANTARA-DD71VH-389", "ANTARA-7P03MZ-346", "ANTARA-IEFEIB-602", "ANTARA-7USVGL-063", "ANTARA-WMBQ97-801", "ANTARA-AJZGFX-262", "ANTARA-2W0YX2-241", "ANTARA-IL80RF-325", "ANTARA-QJWC54-979", "ANTARA-52DLHR-675", "ANTARA-JHXRWO-966", "ANTARA-QVZ8QQ-156", "ANTARA-L4LEB6-652", "ANTARA-H28PQJ-345", "ANTARA-TPOFXN-541", "ANTARA-X4BZPO-493", "ANTARA-J3J267-990", "ANTARA-W757SW-974", "ANTARA-URXHKC-752", "ANTARA-5MVEXB-732", "ANTARA-715AQH-511", "ANTARA-DKVAKD-596", "ANTARA-8PMQBB-898", "ANTARA-797H4Q-116", "ANTARA-JUBVP6-323", "ANTARA-LG74SR-230", "ANTARA-P9C1HJ-237", "ANTARA-EFUPQD-971", "ANTARA-N4PQ3F-780", "ANTARA-O2W6RV-745", "ANTARA-KJL5GU-423", "ANTARA-HJHDIO-799", "ANTARA-OPYM2G-209", "ANTARA-0NCD9S-444", "ANTARA-TL65V2-112", "ANTARA-4CXV27-334", "ANTARA-UK8FZP-763", "ANTARA-0CP1Z6-001", "ANTARA-M52VHP-655", "ANTARA-0EEHZS-135", "ANTARA-7W95UL-770", "ANTARA-XWVQ6I-801", "ANTARA-6IIAGI-008", "ANTARA-PBXC0L-305", "ANTARA-2YL6A1-317", "ANTARA-VBORSQ-238", "ANTARA-6AWVYL-146", "ANTARA-UCXRJT-267", "ANTARA-K75KM6-942", "ANTARA-WG2G04-559", "ANTARA-KAHHMQ-174", "ANTARA-NBKGYX-590", "ANTARA-3OXZX2-884", "ANTARA-GX2BLZ-275", "ANTARA-1CNNOB-034", "ANTARA-FDEIKG-539", "ANTARA-FRTOPW-531", "ANTARA-GZMGA7-162", "ANTARA-YRM2X7-758", "ANTARA-AUH37W-169", "ANTARA-ZY5G7R-376", "ANTARA-TBHB6W-358", "ANTARA-KT3CQ9-147", "ANTARA-DMBE8P-593", "ANTARA-BFQ8DT-133", "ANTARA-GS7ZWB-032", "ANTARA-WJDV79-882", "ANTARA-LSDBYW-743", "ANTARA-82Q4PL-522", "ANTARA-KUTRTY-000", "ANTARA-YAB5IK-687", "ANTARA-3S0AF4-810", "ANTARA-LQL1M9-408", "ANTARA-3USVD8-105", "ANTARA-GEKLVL-363", "ANTARA-0ADES2-372", "ANTARA-8UK1B4-501", "ANTARA-XDVHIF-619", "ANTARA-JL4BH6-599", "ANTARA-OUMH48-758", "ANTARA-SJ8I5Q-202", "ANTARA-YDH5UZ-225", "ANTARA-3K6DW4-225", "ANTARA-KFE0KZ-685", "ANTARA-LK4W3E-564", "ANTARA-3LMEHP-261", "ANTARA-9JZ2CN-118", "ANTARA-LQBR5A-837", "ANTARA-YRRPJ4-166", "ANTARA-AVYYGN-714", "ANTARA-UR91UE-884", "ANTARA-R8E0VH-911", "ANTARA-5RSBCW-590", "ANTARA-QYJP4F-853", "ANTARA-VV7GH2-888", "ANTARA-B97FDK-868", "ANTARA-FLBQJK-057", "ANTARA-TBGJQI-909", "ANTARA-BM0E4I-100", "ANTARA-9OM25W-958", "ANTARA-ZO4C6J-864", "ANTARA-QSOVVI-920", "ANTARA-SBO1WC-722", "ANTARA-Q2WBOC-428", "ANTARA-5CQ96Q-188", "ANTARA-4HUMLS-211", "ANTARA-7PYYYG-090", "ANTARA-CK0DPH-601", "ANTARA-UYS7TZ-213", "ANTARA-E3C0GB-394", "ANTARA-WVBSZN-494", "ANTARA-C9TE87-867", "ANTARA-QWMLX1-502", "ANTARA-38ZW8X-059", "ANTARA-N1214G-526", "ANTARA-0HINH1-978", "ANTARA-GNBZRP-121", "ANTARA-2D183Z-042", "ANTARA-FVMNPD-959", "ANTARA-EUD85N-496", "ANTARA-2J31DX-894", "ANTARA-RDW42O-690", "ANTARA-FJGE0J-318", "ANTARA-53KJDQ-523", "ANTARA-J8VZHB-140", "ANTARA-28NM1U-425", "ANTARA-M9GR0T-114", "ANTARA-1V68SK-881", "ANTARA-HYVYDP-119", "ANTARA-5R5TGS-037", "ANTARA-LOH6BU-913", "ANTARA-ZQYMM8-842", "ANTARA-3AMFWO-186", "ANTARA-5AY7GK-610", "ANTARA-7PPKNR-905", "ANTARA-RSXTJL-628", "ANTARA-OUZ3Q8-629", "ANTARA-T1W21V-802", "ANTARA-ORX7FL-093", "ANTARA-DFXLQX-440", "ANTARA-X6OSHN-167", "ANTARA-BQ5U79-229", "ANTARA-JVWNYZ-946", "ANTARA-BYHS5B-442", "ANTARA-0UOT1N-618", "ANTARA-MYCWAW-584", "ANTARA-MWCF6T-680", "ANTARA-LY52ZG-105", "ANTARA-ABO1HO-042", "ANTARA-WNSF2M-111", "ANTARA-GXRDUC-016", "ANTARA-BC3JRL-553", "ANTARA-D7KI34-621", "ANTARA-1QQZVO-842", "ANTARA-PMJV9J-802", "ANTARA-VL2BQ2-392", "ANTARA-Y4D155-195", "ANTARA-BFT08F-092", "ANTARA-35JPON-904", "ANTARA-JT4OZM-449", "ANTARA-R1CTY3-676", "ANTARA-HHK8AP-326", "ANTARA-QZO8GZ-850", "ANTARA-KQB6FF-489", "ANTARA-QY3FGO-349", "ANTARA-JC4SJJ-370", "ANTARA-MR1R2Q-288", "ANTARA-OYOOC9-074", "ANTARA-YODRFD-431", "ANTARA-6HE02J-022", "ANTARA-R5KFNR-546", "ANTARA-GO03CG-239", "ANTARA-C3MPIZ-974", "ANTARA-BIV0YJ-875", "ANTARA-524M3E-232", "ANTARA-YNTOGF-849", "ANTARA-K5EIOO-409", "ANTARA-B1F4S9-122", "ANTARA-8IQZQY-622", "ANTARA-OK28Y6-814", "ANTARA-4RF616-888", "ANTARA-XBJN4Z-064", "ANTARA-22WLCV-618", "ANTARA-V4CO88-252", "ANTARA-0SQ1PI-979", "ANTARA-3YCQ0Q-381", "ANTARA-1BLF45-093", "ANTARA-9P3RHR-594", "ANTARA-4F6XCM-802", "ANTARA-631PQY-100"];
 
 // ═══════════════════════════════════════════════════════
-//  STORAGE HELPERS  (localStorage, keys per-session)
+//  SUPABASE CONFIG
 // ═══════════════════════════════════════════════════════
-const STORE_BANNED    = 'foa_quiz_banned';
+const SB_URL  = 'https://gzvbphkzvpsxgjfitcej.supabase.co';
+const SB_KEY  = 'sb_publishable_GLmr3s94e5UptqkjCoq08A_UEIN6z_v';
+const COOLDOWN_HOURS = 30;
+
+// ═══════════════════════════════════════════════════════
+//  IP FETCH  (free, no-key service)
+// ═══════════════════════════════════════════════════════
+let userIP = null;
+async function fetchIP(){
+    try {
+        const r = await fetch('https://api.ipify.org?format=json');
+        const d = await r.json();
+        userIP = d.ip;
+    } catch(e){
+        // fallback fingerprint if IP fetch fails
+        userIP = 'fp_' + navigator.userAgent.length + '_' + screen.width + '_' + screen.colorDepth;
+    }
+}
+
+// ═══════════════════════════════════════════════════════
+//  SUPABASE HELPERS
+// ═══════════════════════════════════════════════════════
+async function sbFetch(path, opts){
+    return fetch(SB_URL + path, {
+        ...opts,
+        headers: {
+            'apikey': SB_KEY,
+            'Authorization': 'Bearer ' + SB_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation',
+            ...(opts && opts.headers)
+        }
+    });
+}
+
+// Returns null if no record, or the row object
+async function getAttemptRecord(){
+    if(!userIP) return null;
+    const r = await sbFetch('/rest/v1/quiz_attempts?ip=eq.' + encodeURIComponent(userIP) + '&order=attempted_at.desc&limit=1', {method:'GET'});
+    const rows = await r.json();
+    if(!Array.isArray(rows) || rows.length === 0) return null;
+    return rows[0];
+}
+
+async function saveAttempt(won){
+    if(!userIP) return;
+    await sbFetch('/rest/v1/quiz_attempts', {
+        method: 'POST',
+        body: JSON.stringify({ ip: userIP, won: won })
+    });
+}
+
+// Returns { blocked: bool, hoursLeft: number, minutesLeft: number }
+async function checkCooldown(){
+    const rec = await getAttemptRecord();
+    if(!rec) return { blocked: false };
+    const attemptedAt = new Date(rec.attempted_at);
+    const now = new Date();
+    const diffMs = now - attemptedAt;
+    const diffHours = diffMs / (1000 * 60 * 60);
+    if(diffHours < COOLDOWN_HOURS){
+        const remaining = COOLDOWN_HOURS - diffHours;
+        const hoursLeft = Math.floor(remaining);
+        const minutesLeft = Math.floor((remaining - hoursLeft) * 60);
+        return { blocked: true, hoursLeft, minutesLeft, won: rec.won };
+    }
+    // cooldown expired — allowed to try again
+    return { blocked: false };
+}
+
+// ═══════════════════════════════════════════════════════
+//  LOCAL STORAGE HELPERS  (warn flag only, still useful)
+// ═══════════════════════════════════════════════════════
 const STORE_USED_CODE = 'foa_quiz_used_codes';
 const STORE_WARN      = 'foa_quiz_warned';
 
-function isBanned(){    return localStorage.getItem(STORE_BANNED) === '1'; }
-function setBanned(){   localStorage.setItem(STORE_BANNED, '1'); }
 function hasWarned(){   return localStorage.getItem(STORE_WARN) === '1'; }
 function setWarned(){   localStorage.setItem(STORE_WARN, '1'); }
 function getUsedCodes(){ try{ return JSON.parse(localStorage.getItem(STORE_USED_CODE)||'[]'); }catch(e){return[];} }
@@ -551,24 +654,57 @@ function hide(id){ document.getElementById(id).style.display='none'; }
 // ═══════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════
-window.addEventListener('DOMContentLoaded', function(){
-	if(isBanned()){
-		hide('start-screen');
-		show('banned-screen');
-		return;
-	}
-	show('start-screen');
+window.addEventListener('DOMContentLoaded', async function(){
+	// show loading state
+	hide('start-screen');
 	hide('quiz-screen');
 	hide('win-screen');
 	hide('lose-screen');
 	hide('banned-screen');
+	show('loading-screen');
+
+	// fetch IP first
+	await fetchIP();
+
+	// check Supabase cooldown
+	const status = await checkCooldown();
+	hide('loading-screen');
+
+	if(status.blocked){
+		// show cooldown screen with timer
+		document.getElementById('cooldown-hours').textContent = status.hoursLeft;
+		document.getElementById('cooldown-mins').textContent = String(status.minutesLeft).padStart(2,'0');
+		if(status.won){
+			document.getElementById('cooldown-title').textContent = 'You already won!';
+			document.getElementById('cooldown-msg').textContent = 'You already won a Steam key in your last attempt. Each player wins only once. Enjoy Fate of Antara!';
+		}
+		show('banned-screen');
+		startCooldownTick(status.hoursLeft, status.minutesLeft);
+	} else {
+		show('start-screen');
+	}
 });
+
+function startCooldownTick(h, m){
+	let totalMins = h * 60 + m;
+	const tick = setInterval(function(){
+		totalMins--;
+		if(totalMins <= 0){ clearInterval(tick); return; }
+		const hh = Math.floor(totalMins/60);
+		const mm = totalMins % 60;
+		const hEl = document.getElementById('cooldown-hours');
+		const mEl = document.getElementById('cooldown-mins');
+		if(hEl) hEl.textContent = hh;
+		if(mEl) mEl.textContent = String(mm).padStart(2,'0');
+	}, 60000);
+}
 
 // ═══════════════════════════════════════════════════════
 //  START QUIZ
 // ═══════════════════════════════════════════════════════
-function startQuiz(){
-	if(isBanned()){ show('banned-screen'); hide('start-screen'); return; }
+async function startQuiz(){
+	const status = await checkCooldown();
+	if(status.blocked){ show('banned-screen'); hide('start-screen'); return; }
 	selectedQs = shuffle([...ALL_QUESTIONS]).slice(0,15);
 	currentIdx = 0;
 	score = 0;
@@ -695,7 +831,7 @@ function endQuiz(won){
 	clearInterval(timerHandle);
 	hide('quiz-screen');
 	detachVisibilityGuard();
-	setBanned(); // one attempt used
+	saveAttempt(won); // log to Supabase
 
 	if(won){
 		const code=getAvailableCode();
@@ -784,7 +920,7 @@ function forceEnd(){
 	quizActive=false;
 	clearInterval(timerHandle);
 	detachVisibilityGuard();
-	setBanned();
+	saveAttempt(false); // log forfeit to Supabase
 	hide('quiz-screen');
 	hide('start-screen');
 	show('banned-screen');
