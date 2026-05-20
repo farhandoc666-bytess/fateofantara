@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Logging you in – Fate of Antara</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="img/favicon.ico" rel="shortcut icon"/>
+  <style>
+    body{
+      margin:0;
+      background:#080808;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      font-family:'Roboto',sans-serif;
+      color:#fff;
+    }
+    .box{
+      text-align:center;
+      padding:50px 40px;
+      border-radius:20px;
+      background:rgba(10,10,10,.9);
+      border:1px solid rgba(255,255,255,.07);
+      max-width:420px;
+      width:90%;
+    }
+    .spinner{
+      width:48px;height:48px;
+      border:4px solid rgba(255,255,255,.1);
+      border-top-color:#4fc3f7;
+      border-radius:50%;
+      animation:spin .8s linear infinite;
+      margin:0 auto 24px;
+    }
+    @keyframes spin{ to{ transform:rotate(360deg); } }
+    h2{ font-size:20px; margin-bottom:10px; }
+    p{ color:#888; font-size:14px; }
+    .error-box{ display:none; }
+    .error-box h2{ color:#ff5555; }
+  </style>
+</head>
+<body>
+<div class="box">
+  <div id="loading-box">
+    <div class="spinner"></div>
+    <h2>Verifying your Steam account...</h2>
+    <p>Please wait a moment.</p>
+  </div>
+  <div id="error-box" class="error-box">
+    <h2>&#10060; Login failed</h2>
+    <p id="error-msg">Something went wrong. Please try again.</p>
+    <br>
+    <a href="index.html" style="color:#4fc3f7;">← Back to site</a>
+  </div>
+</div>
+
+<script>
+const SB_URL = 'https://gzvbphkzvpsxgjfitcej.supabase.co';
+const SB_KEY = 'sb_publishable_GLmr3s94e5UptqkjCoq08A_UEIN6z_v';
+
+function showError(msg){
+  document.getElementById('loading-box').style.display = 'none';
+  const eb = document.getElementById('error-box');
+  eb.style.display = 'block';
+  document.getElementById('error-msg').textContent = msg;
+}
+
+async function sbFetch(path, opts){
+  return fetch(SB_URL + path, {
+    ...opts,
+    headers:{
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation',
+      ...(opts && opts.headers)
+    }
+  });
+}
+
+async function processLogin(){
+  const params = new URLSearchParams(window.location.search);
+  const claimedId = params.get('openid.claimed_id') || params.get('openid.identity') || '';
+
+  // Extract Steam ID from claimed_id URL
+  // Format: https://steamcommunity.com/openid/id/76561198XXXXXXXXX
+  const match = claimedId.match(/\/id\/(\d+)/);
+  if(!match){
+    showError('Could not extract Steam ID. Please try logging in again.');
+    return;
+  }
+
+  const steamId = match[1];
+
+  // Fetch Steam profile via our proxy approach using Steam's public XML
+  let personaname = 'Steam User';
+  let avatar = 'https://steamcommunity.com/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg';
+
+  try{
+    // Use Steam's public community data (no API key needed for basic profile)
+    const profileResp = await fetch(
+      `https://steamcommunity.com/profiles/${steamId}/?xml=1`
+    );
+    const xml = await profileResp.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(xml, 'text/xml');
+    const nameEl = doc.querySelector('steamID');
+    const avatarEl = doc.querySelector('avatarFull');
+    if(nameEl) personaname = nameEl.textContent;
+    if(avatarEl) avatar = avatarEl.textContent;
+  } catch(e){
+    // profile fetch failed, use defaults
+  }
+
+  const steamUser = {
+    steamid: steamId,
+    personaname: personaname,
+    avatar: avatar,
+    logged_in_at: new Date().toISOString()
+  };
+
+  // Save to localStorage
+  localStorage.setItem('foa_steam_user', JSON.stringify(steamUser));
+
+  // Update visitor record in Supabase — merge steam data with existing session
+  const sid = localStorage.getItem('foa_session');
+  if(sid){
+    try{
+      await sbFetch('/rest/v1/visitors?session_id=eq.' + encodeURIComponent(sid), {
+        method: 'PATCH',
+        body: JSON.stringify({
+          steam_id: steamId,
+          steam_name: personaname,
+          steam_avatar: avatar,
+          last_seen: new Date().toISOString()
+        })
+      });
+    } catch(e){}
+  }
+
+  // Redirect back — go to referring page or index
+  const returnPage = localStorage.getItem('foa_return_page') || 'index.html';
+  localStorage.removeItem('foa_return_page');
+  window.location.href = returnPage;
+}
+
+// Save current page so we can return after login
+// (this is set before redirect in the main JS)
+window.addEventListener('DOMContentLoaded', processLogin);
+</script>
+</body>
+</html>

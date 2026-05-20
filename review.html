@@ -389,6 +389,144 @@ body{
 	  gtag('js', new Date());
 	  gtag('config', 'G-9FD3X9YV4P');
 	</script>
+<script>
+// ═══════════════════════════════════════════════
+//  FATE OF ANTARA — VISITOR + STEAM AUTH SYSTEM
+// ═══════════════════════════════════════════════
+const SB_URL = 'https://gzvbphkzvpsxgjfitcej.supabase.co';
+const SB_KEY = 'sb_publishable_GLmr3s94e5UptqkjCoq08A_UEIN6z_v';
+const STEAM_API_KEY = ''; // optional, not needed for login
+const SITE_URL = 'https://fateofantara.com';
+
+// ── Session ID (persists across pages) ──
+function getSessionId(){
+  let sid = localStorage.getItem('foa_session');
+  if(!sid){ sid = 'sess_' + Date.now() + '_' + Math.random().toString(36).substr(2,9); localStorage.setItem('foa_session', sid); }
+  return sid;
+}
+
+// ── Steam user from localStorage ──
+function getSteamUser(){
+  try{ return JSON.parse(localStorage.getItem('foa_steam_user') || 'null'); }catch(e){ return null; }
+}
+function setSteamUser(u){ localStorage.setItem('foa_steam_user', JSON.stringify(u)); }
+function clearSteamUser(){ localStorage.removeItem('foa_steam_user'); }
+
+// ── Supabase fetch helper ──
+async function sbFetch(path, opts){
+  return fetch(SB_URL + path, {
+    ...opts,
+    headers:{
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation',
+      ...(opts && opts.headers)
+    }
+  });
+}
+
+// ── Get visitor IP + country ──
+async function getVisitorInfo(){
+  try{
+    const r = await fetch('https://ipapi.co/json/');
+    const d = await r.json();
+    return { ip: d.ip||'', country: d.country_name||'', country_code: d.country_code||'' };
+  }catch(e){ return { ip:'', country:'', country_code:'' }; }
+}
+
+// ── Detect browser ──
+function getBrowser(){
+  const ua = navigator.userAgent;
+  if(ua.includes('Edg')) return 'Edge';
+  if(ua.includes('OPR')||ua.includes('Opera')) return 'Opera';
+  if(ua.includes('Chrome')) return 'Chrome';
+  if(ua.includes('Firefox')) return 'Firefox';
+  if(ua.includes('Safari')) return 'Safari';
+  return 'Other';
+}
+
+// ── Detect device ──
+function getDevice(){
+  const ua = navigator.userAgent;
+  if(/Mobi|Android/i.test(ua)) return 'Mobile';
+  if(/Tablet|iPad/i.test(ua)) return 'Tablet';
+  return 'Desktop';
+}
+
+// ── Track visitor ──
+async function trackVisitor(){
+  const sid = getSessionId();
+  const steamUser = getSteamUser();
+  const info = await getVisitorInfo();
+  const payload = {
+    session_id: sid,
+    ip: info.ip,
+    country: info.country,
+    browser: getBrowser(),
+    device: getDevice(),
+    referrer: document.referrer || 'direct',
+    last_seen: new Date().toISOString()
+  };
+  if(steamUser){
+    payload.steam_id   = steamUser.steamid;
+    payload.steam_name = steamUser.personaname;
+    payload.steam_avatar = steamUser.avatar;
+  }
+  // upsert by session_id
+  await sbFetch('/rest/v1/visitors', {
+    method: 'POST',
+    headers:{ 'Prefer': 'resolution=merge-duplicates,return=representation' },
+    body: JSON.stringify(payload)
+  });
+}
+
+// ── Steam Login ──
+function steamLogin(){
+  if(!localStorage.getItem('foa_return_page')){
+    localStorage.setItem('foa_return_page', window.location.href);
+  }
+  const returnUrl = encodeURIComponent(SITE_URL + '/steam-auth.html');
+  const steamOpenID = 'https://steamcommunity.com/openid/login' +
+    '?openid.ns=http://specs.openid.net/auth/2.0' +
+    '&openid.mode=checkid_setup' +
+    '&openid.return_to=' + returnUrl +
+    '&openid.realm=' + encodeURIComponent(SITE_URL) +
+    '&openid.identity=http://specs.openid.net/auth/2.0/identifier_select' +
+    '&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select';
+  window.location.href = steamOpenID;
+}
+
+function steamLogout(){
+  clearSteamUser();
+  updateHeaderAuth();
+}
+
+// ── Update header login button ──
+function updateHeaderAuth(){
+  const user = getSteamUser();
+  const btn = document.getElementById('foa-auth-btn');
+  if(!btn) return;
+  if(user){
+    btn.innerHTML = '<img src="'+user.avatar+'" style="width:26px;height:26px;border-radius:50%;margin-right:7px;vertical-align:middle;">'+
+      '<span style="vertical-align:middle;">'+user.personaname+'</span>'+
+      '<span onclick="steamLogout()" style="margin-left:10px;font-size:11px;opacity:.6;cursor:pointer;vertical-align:middle;">[logout]</span>';
+    btn.onclick = null;
+    btn.style.cursor = 'default';
+  } else {
+    btn.innerHTML = '<i class="fa fa-steam" style="font-size:16px;margin-right:7px;"></i>Login with Steam';
+    btn.onclick = steamLogin;
+    btn.style.cursor = 'pointer';
+  }
+}
+
+// ── Init on page load ──
+window.addEventListener('DOMContentLoaded', function(){
+  trackVisitor();
+  updateHeaderAuth();
+});
+</script>
+
 <style>
 /* ── TWO-ROW HEADER ───────────────────────────────────── */
 .header-section{
@@ -403,8 +541,6 @@ body{
     max-width:100% !important;
     width:100%;
 }
-
-/* ROW 1 — logo left, steam widget right */
 .header-row1{
     display:flex;
     align-items:center;
@@ -412,6 +548,7 @@ body{
     padding:10px 30px;
     width:100%;
     border-bottom:1px solid rgba(255,255,255,.04);
+    box-sizing:border-box;
 }
 .header-row1 .site-logo{
     float:none !important;
@@ -422,15 +559,13 @@ body{
     height:52px;
     width:auto;
 }
-
-
-/* ROW 2 — nav full width single line */
 .header-row2{
     display:flex;
     align-items:center;
     justify-content:center;
     padding:0 30px;
     width:100%;
+    box-sizing:border-box;
 }
 .header-row2 .main-menu{
     float:none !important;
@@ -453,19 +588,15 @@ body{
     white-space:nowrap;
     font-size:13px;
 }
-
-/* hide old user-panel & nav-switch */
 .user-panel{ display:none !important; }
 .nav-switch{ display:none !important; }
-
-/* mobile */
 @media(max-width:767px){
     .header-row1{ padding:10px 16px; }
-    .steam-header-widget iframe{ width:180px; height:70px; }
     .header-row2 .main-menu ul{ flex-wrap:wrap !important; justify-content:center; }
     .header-row2 .main-menu ul li a{ padding:8px 10px; font-size:12px; }
 }
 </style>
+
 </head>
 
 <body>
@@ -493,17 +624,24 @@ body{
 <!-- HEADER -->
 <header class="header-section">
 	<div class="container">
-
-		<!-- ROW 1: Logo + Steam Widget -->
+		<!-- ROW 1: Logo + Steam Login -->
 		<div class="header-row1">
-			<a class="site-logo" href="https://fateofantara.com">
+			<a class="site-logo" href="index.html">
 				<img src="img/logo.png" alt="Fate of Antara">
 			</a>
+			<div id="foa-auth-btn"
+				style="display:inline-flex;align-items:center;padding:9px 18px;border-radius:10px;
+				       background:linear-gradient(135deg,#1b2838,#2a475e);
+				       border:1px solid rgba(100,180,255,.25);color:#fff;font-weight:700;
+				       font-size:13px;cursor:pointer;white-space:nowrap;transition:.3s;
+				       box-shadow:0 0 14px rgba(42,71,94,.5);"
+				onmouseover="this.style.opacity='.82'"
+				onmouseout="this.style.opacity='1'">
+				<i class="fa fa-steam" style="font-size:16px;margin-right:7px;"></i>Login with Steam
+			</div>
 		</div>
-
 		<!-- ROW 2: Navigation -->
 		<div class="header-row2">
-			<div class="nav-switch"><i class="fa fa-bars"></i></div>
 			<nav class="main-menu">
 				<ul>
 					<li><a href="index.html">Home</a></li>
@@ -517,7 +655,6 @@ body{
 				</ul>
 			</nav>
 		</div>
-
 	</div>
 </header>
 
@@ -1003,6 +1140,208 @@ body{
 </section>
 
 <!-- FOOTER -->
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--  PLAYER REVIEWS SECTION                         -->
+<!-- ═══════════════════════════════════════════════ -->
+<section style="padding:60px 0;background:linear-gradient(180deg,#080808,#0d0000);">
+  <div class="container">
+
+    <div style="text-align:center;margin-bottom:40px;">
+      <h2 style="color:#fff;font-size:32px;font-weight:800;margin-bottom:10px;">Player Reviews</h2>
+      <p style="color:#888;font-size:15px;">Share your experience with Fate of Antara</p>
+    </div>
+
+    <!-- WRITE A REVIEW (only shown when logged in) -->
+    <div id="review-form-wrap" style="display:none;max-width:700px;margin:0 auto 50px;">
+      <div style="background:rgba(10,10,10,.85);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:30px;">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px;">
+          <img id="rv-avatar" src="" style="width:46px;height:46px;border-radius:50%;border:2px solid rgba(255,255,255,.15);">
+          <div>
+            <div id="rv-name" style="color:#fff;font-weight:700;font-size:15px;"></div>
+            <div style="color:#888;font-size:12px;">Steam Player</div>
+          </div>
+        </div>
+
+        <!-- Star rating -->
+        <div style="margin-bottom:16px;">
+          <span style="color:#aaa;font-size:13px;display:block;margin-bottom:8px;">Your Rating</span>
+          <div id="rv-stars" style="display:flex;gap:6px;">
+            <i class="fa fa-star rv-star" data-val="1" style="font-size:28px;color:#444;cursor:pointer;transition:.2s;"></i>
+            <i class="fa fa-star rv-star" data-val="2" style="font-size:28px;color:#444;cursor:pointer;transition:.2s;"></i>
+            <i class="fa fa-star rv-star" data-val="3" style="font-size:28px;color:#444;cursor:pointer;transition:.2s;"></i>
+            <i class="fa fa-star rv-star" data-val="4" style="font-size:28px;color:#444;cursor:pointer;transition:.2s;"></i>
+            <i class="fa fa-star rv-star" data-val="5" style="font-size:28px;color:#444;cursor:pointer;transition:.2s;"></i>
+          </div>
+        </div>
+
+        <textarea id="rv-text"
+          placeholder="Write your review... (min 20 characters)"
+          style="width:100%;min-height:110px;background:#111;border:1px solid rgba(255,255,255,.09);
+                 border-radius:12px;color:#fff;padding:14px;font-size:14px;resize:vertical;
+                 font-family:inherit;box-sizing:border-box;"></textarea>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;flex-wrap:wrap;gap:10px;">
+          <span id="rv-msg" style="font-size:13px;color:#888;"></span>
+          <button id="rv-submit-btn"
+            onclick="submitReview()"
+            style="padding:11px 28px;border-radius:10px;background:linear-gradient(135deg,#b30000,#ff3300);
+                   color:#fff;font-weight:700;border:none;cursor:pointer;font-size:14px;">
+            Submit Review
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOT LOGGED IN PROMPT -->
+    <div id="review-login-prompt" style="text-align:center;margin-bottom:44px;">
+      <div style="display:inline-block;background:rgba(10,10,10,.7);border:1px solid rgba(255,255,255,.07);
+                  border-radius:16px;padding:24px 36px;">
+        <p style="color:#aaa;margin-bottom:16px;font-size:15px;">Login with Steam to leave a review</p>
+        <div onclick="saveReturnAndLogin()"
+          style="display:inline-flex;align-items:center;gap:10px;padding:11px 24px;border-radius:10px;
+                 background:linear-gradient(135deg,#1b2838,#2a475e);border:1px solid rgba(100,180,255,.25);
+                 color:#fff;font-weight:700;font-size:14px;cursor:pointer;">
+          <i class="fa fa-steam" style="font-size:18px;"></i> Login with Steam
+        </div>
+      </div>
+    </div>
+
+    <!-- REVIEWS LIST -->
+    <div id="reviews-list" style="max-width:760px;margin:0 auto;">
+      <div id="reviews-loading" style="text-align:center;color:#555;padding:30px;font-size:14px;">
+        Loading reviews...
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+// ── Reviews System ──
+let selectedRating = 0;
+
+// Star interaction
+document.querySelectorAll('.rv-star').forEach(function(star){
+  star.addEventListener('mouseover', function(){
+    const val = parseInt(this.dataset.val);
+    document.querySelectorAll('.rv-star').forEach(function(s){
+      s.style.color = parseInt(s.dataset.val) <= val ? '#ffd700' : '#444';
+    });
+  });
+  star.addEventListener('mouseout', function(){
+    document.querySelectorAll('.rv-star').forEach(function(s){
+      s.style.color = parseInt(s.dataset.val) <= selectedRating ? '#ffd700' : '#444';
+    });
+  });
+  star.addEventListener('click', function(){
+    selectedRating = parseInt(this.dataset.val);
+    document.querySelectorAll('.rv-star').forEach(function(s){
+      s.style.color = parseInt(s.dataset.val) <= selectedRating ? '#ffd700' : '#444';
+    });
+  });
+});
+
+function saveReturnAndLogin(){
+  localStorage.setItem('foa_return_page', window.location.href);
+  steamLogin();
+}
+
+function renderStars(n){
+  let s = '';
+  for(let i=1;i<=5;i++) s += '<i class="fa fa-star" style="color:' + (i<=n?'#ffd700':'#444') + ';font-size:14px;margin-right:2px;"></i>';
+  return s;
+}
+
+async function loadReviews(){
+  try{
+    const r = await sbFetch('/rest/v1/reviews?order=created_at.desc&limit=50', {method:'GET'});
+    const rows = await r.json();
+    const list = document.getElementById('reviews-list');
+    document.getElementById('reviews-loading').style.display='none';
+    if(!rows || rows.length===0){
+      list.innerHTML = '<p style="text-align:center;color:#555;font-size:14px;">No reviews yet. Be the first to review!</p>';
+      return;
+    }
+    list.innerHTML = rows.map(function(rv){
+      const date = new Date(rv.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+      return '<div style="background:rgba(10,10,10,.82);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:22px 24px;margin-bottom:16px;">' +
+        '<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">' +
+          '<img src="'+rv.steam_avatar+'" style="width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.12);" onerror="this.src='https://steamcommunity.com/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg'">' +
+          '<div>' +
+            '<div style="color:#fff;font-weight:700;font-size:14px;">'+rv.steam_name+'</div>' +
+            '<div style="display:flex;align-items:center;gap:8px;margin-top:3px;">' +
+              renderStars(rv.rating) +
+              '<span style="color:#555;font-size:12px;margin-left:4px;">'+date+'</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<p style="color:#ccc;font-size:14px;line-height:1.75;margin:0;">'+rv.review_text.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</p>' +
+      '</div>';
+    }).join('');
+  }catch(e){
+    document.getElementById('reviews-loading').textContent = 'Could not load reviews.';
+  }
+}
+
+async function submitReview(){
+  const user = getSteamUser();
+  if(!user){ alert('Please login with Steam first.'); return; }
+  if(selectedRating === 0){ document.getElementById('rv-msg').textContent = 'Please select a star rating.'; return; }
+  const text = document.getElementById('rv-text').value.trim();
+  if(text.length < 20){ document.getElementById('rv-msg').textContent = 'Review must be at least 20 characters.'; return; }
+
+  const btn = document.getElementById('rv-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  document.getElementById('rv-msg').textContent = '';
+
+  try{
+    // Check if already reviewed
+    const check = await sbFetch('/rest/v1/reviews?steam_id=eq.'+encodeURIComponent(user.steamid)+'&limit=1', {method:'GET'});
+    const existing = await check.json();
+    if(existing && existing.length > 0){
+      document.getElementById('rv-msg').textContent = 'You already submitted a review. Thank you!';
+      btn.disabled = false; btn.textContent = 'Submit Review';
+      return;
+    }
+
+    await sbFetch('/rest/v1/reviews', {
+      method:'POST',
+      body: JSON.stringify({
+        steam_id: user.steamid,
+        steam_name: user.personaname,
+        steam_avatar: user.avatar,
+        rating: selectedRating,
+        review_text: text
+      })
+    });
+
+    document.getElementById('rv-msg').style.color = '#4fc3f7';
+    document.getElementById('rv-msg').textContent = '✓ Review submitted! Thank you.';
+    document.getElementById('rv-text').value = '';
+    selectedRating = 0;
+    document.querySelectorAll('.rv-star').forEach(function(s){ s.style.color='#444'; });
+    loadReviews();
+  }catch(e){
+    document.getElementById('rv-msg').textContent = 'Error submitting. Please try again.';
+  }
+  btn.disabled = false; btn.textContent = 'Submit Review';
+}
+
+// Init reviews section
+window.addEventListener('DOMContentLoaded', function(){
+  loadReviews();
+  const user = getSteamUser();
+  if(user){
+    document.getElementById('review-login-prompt').style.display = 'none';
+    document.getElementById('review-form-wrap').style.display = 'block';
+    document.getElementById('rv-name').textContent = user.personaname;
+    document.getElementById('rv-avatar').src = user.avatar;
+  }
+});
+</script>
 
 <!-- STEAM BUY WIDGET – regional pricing auto-detected by Steam -->
 <section style="padding:40px 0 50px;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(20,0,0,0.85) 100%);">
