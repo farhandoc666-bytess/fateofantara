@@ -401,6 +401,145 @@ body{
     .header-row2 .main-menu ul li a{ padding:8px 10px; font-size:12px; }
 }
 </style>
+
+<script>
+// ═══════════════════════════════════════════════
+//  FATE OF ANTARA — VISITOR + STEAM AUTH SYSTEM
+// ═══════════════════════════════════════════════
+const SB_URL = 'https://gzvbphkzvpsxgjfitcej.supabase.co';
+const SB_KEY = 'sb_publishable_GLmr3s94e5UptqkjCoq08A_UEIN6z_v';
+const STEAM_API_KEY = ''; // optional, not needed for login
+const SITE_URL = 'https://fateofantara.com';
+
+// ── Session ID (persists across pages) ──
+function getSessionId(){
+  let sid = localStorage.getItem('foa_session');
+  if(!sid){ sid = 'sess_' + Date.now() + '_' + Math.random().toString(36).substr(2,9); localStorage.setItem('foa_session', sid); }
+  return sid;
+}
+
+// ── Steam user from localStorage ──
+function getSteamUser(){
+  try{ return JSON.parse(localStorage.getItem('foa_steam_user') || 'null'); }catch(e){ return null; }
+}
+function setSteamUser(u){ localStorage.setItem('foa_steam_user', JSON.stringify(u)); }
+function clearSteamUser(){ localStorage.removeItem('foa_steam_user'); }
+
+// ── Supabase fetch helper ──
+async function sbFetch(path, opts){
+  return fetch(SB_URL + path, {
+    ...opts,
+    headers:{
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation',
+      ...(opts && opts.headers)
+    }
+  });
+}
+
+// ── Get visitor IP + country ──
+async function getVisitorInfo(){
+  try{
+    const r = await fetch('https://ipapi.co/json/');
+    const d = await r.json();
+    return { ip: d.ip||'', country: d.country_name||'', country_code: d.country_code||'' };
+  }catch(e){ return { ip:'', country:'', country_code:'' }; }
+}
+
+// ── Detect browser ──
+function getBrowser(){
+  const ua = navigator.userAgent;
+  if(ua.includes('Edg')) return 'Edge';
+  if(ua.includes('OPR')||ua.includes('Opera')) return 'Opera';
+  if(ua.includes('Chrome')) return 'Chrome';
+  if(ua.includes('Firefox')) return 'Firefox';
+  if(ua.includes('Safari')) return 'Safari';
+  return 'Other';
+}
+
+// ── Detect device ──
+function getDevice(){
+  const ua = navigator.userAgent;
+  if(/Mobi|Android/i.test(ua)) return 'Mobile';
+  if(/Tablet|iPad/i.test(ua)) return 'Tablet';
+  return 'Desktop';
+}
+
+// ── Track visitor ──
+async function trackVisitor(){
+  const sid = getSessionId();
+  const steamUser = getSteamUser();
+  const info = await getVisitorInfo();
+  const payload = {
+    session_id: sid,
+    ip: info.ip,
+    country: info.country,
+    browser: getBrowser(),
+    device: getDevice(),
+    referrer: document.referrer || 'direct',
+    last_seen: new Date().toISOString()
+  };
+  if(steamUser){
+    payload.steam_id   = steamUser.steamid;
+    payload.steam_name = steamUser.personaname;
+    payload.steam_avatar = steamUser.avatar;
+  }
+  // upsert by session_id
+  await sbFetch('/rest/v1/visitors', {
+    method: 'POST',
+    headers:{ 'Prefer': 'resolution=merge-duplicates,return=representation' },
+    body: JSON.stringify(payload)
+  });
+}
+
+// ── Steam Login ──
+function steamLogin(){
+  if(!localStorage.getItem('foa_return_page')){
+    localStorage.setItem('foa_return_page', window.location.href);
+  }
+  const returnUrl = encodeURIComponent(SITE_URL + '/steam-auth.html');
+  const steamOpenID = 'https://steamcommunity.com/openid/login' +
+    '?openid.ns=http://specs.openid.net/auth/2.0' +
+    '&openid.mode=checkid_setup' +
+    '&openid.return_to=' + returnUrl +
+    '&openid.realm=' + encodeURIComponent(SITE_URL) +
+    '&openid.identity=http://specs.openid.net/auth/2.0/identifier_select' +
+    '&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select';
+  window.location.href = steamOpenID;
+}
+
+function steamLogout(){
+  clearSteamUser();
+  updateHeaderAuth();
+}
+
+// ── Update header login button ──
+function updateHeaderAuth(){
+  const user = getSteamUser();
+  const btn = document.getElementById('foa-auth-btn');
+  if(!btn) return;
+  if(user){
+    btn.innerHTML = '<img src="'+user.avatar+'" style="width:26px;height:26px;border-radius:50%;margin-right:7px;vertical-align:middle;">'+
+      '<span style="vertical-align:middle;">'+user.personaname+'</span>'+
+      '<span onclick="steamLogout()" style="margin-left:10px;font-size:11px;opacity:.6;cursor:pointer;vertical-align:middle;">[logout]</span>';
+    btn.onclick = null;
+    btn.style.cursor = 'default';
+  } else {
+    btn.innerHTML = '<i class="fa fa-steam" style="font-size:16px;margin-right:7px;"></i>Login with Steam';
+    btn.onclick = steamLogin;
+    btn.style.cursor = 'pointer';
+  }
+}
+
+// ── Init on page load ──
+window.addEventListener('DOMContentLoaded', function(){
+  trackVisitor();
+  updateHeaderAuth();
+});
+</script>
+
 </head>
 <body>
 <div class="red-particles">
@@ -423,6 +562,17 @@ body{
 			<a class="site-logo" href="https://fateofantara.com">
 				<img src="img/logo.png" alt="Fate of Antara">
 			</a>
+		
+			<div id="foa-auth-btn"
+				style="display:inline-flex;align-items:center;padding:9px 18px;border-radius:10px;
+				       background:linear-gradient(135deg,#1b2838,#2a475e);
+				       border:1px solid rgba(100,180,255,.25);color:#fff;font-weight:700;
+				       font-size:13px;cursor:pointer;white-space:nowrap;transition:.3s;
+				       box-shadow:0 0 14px rgba(42,71,94,.5);"
+				onmouseover="this.style.opacity='.82'"
+				onmouseout="this.style.opacity='1'">
+				<i class="fa fa-steam" style="font-size:16px;margin-right:7px;"></i>Login with Steam
+			</div>
 		</div>
 
 		<!-- ROW 2: Navigation -->
